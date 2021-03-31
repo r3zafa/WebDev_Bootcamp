@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form name attribute</title>
+</head>
+<body>
+    <h2>name attribute in form</h2>
+    <p>
+        name attribute in input help to submit form information with a given name.
+        in this form submit send information from form with name attribute to a given url in form action. is really easy to add but is very important
+    </p>
+    <div>
+        <h2> form v1.3: add name attribute</h2>
+        <form action="/page3.html">
+        <p>
+            <label for="username">Enter a username: </label>
+            <input type="text" placeholder="username" id="username" name="username"> <!-- for normal text input-->
+        </p>
+        <p>
+            <label for="password">Enter your password:</label>
+            <input type="password" placeholder="password" id="password" name="password"> <!-- for password text input-->
+        </p>
+        <p>
+            <label for="color">Enter a color: </label>
+            <input type="color" id="color" name="color"> 
+        </p>
+
+        <!--button-->
+        <button> submit </button> 
+        
+        </form>
+        <!-- http://127.0.0.1:5500/page3.html?username=reza&password=1234&color=%23d31d1d : 
+            by submiting we will became this-->
+        </div>
+</body>
+</html>

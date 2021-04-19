@@ -1,0 +1,129 @@
+/* * {
+  background-color: bisque;
+}
+*/
+body {
+  background-color: #ebe6dc;
+}
+
+button {
+  font-size: 25px;
+  background-color: #25887c;
+  color: #ffffff;
+}
+
+h1,
+h2 {
+  color: #264653;
+}
+
+#signup {
+  background-color: #e66140;
+  color: #ffffff;
+} /* # to costomize id*/
+
+span {
+  color: #25887c;
+}
+
+/* class "."*/
+.Tag {
+  background-color: #cc0f08;
+  color: #ffffff;
+  font-size: 15px;
+}
+
+/* descendent selector: "li a" mean all a nested in li 
+instead of:
+
+a {
+  color: #25887c;
+}
+write as follow to change just links inside span: 
+*/
+span a {
+  color: #25887c;
+}
+
+/*
+Adjacent selector
+h1 + p {}
+h2 + button {}
+*/
+h2 + button {
+  font-size: 20px;
+}
+
+/*
+
+direct child
+ exmple: div > li
+*/
+
+footer a {
+  color: red;
+}
+
+footer > a {
+  color: #25887c;
+}
+
+/*
+attribute selector:
+example:
+✅
+input [type="text"] {
+width: 300px;
+color:yellow;
+}
+❌
+input {
+  color: #cc0f08;
+}
+*/
+input[type="password"] {
+  color: #cc0f08;
+}
+
+/*
+pseudo classes
+*/
+/*button:hover {
+  background-color: #cc0f08;
+  color: #ffffff;
+}
+*/
+.post button:hover {
+  background-color: #cc0f08;
+  color: #ffffff;
+}
+.post button:active {
+  background-color: burlywood;
+}
+.post {
+  background-color: #ec8f6e;
+}
+.post:nth-of-type(2n) {
+  background-color: #61cae4;
+}
+/*
+Pseudo Elements
+::after 
+::cue usw.
+*/
+
+h2::first-letter {
+  font-size: 30px;
+  color: #cc0f08;
+}
+
+p::first-line {
+  color: blue;
+}
+
+p::selection {
+  background-color: #ffffff;
+}
+footer a::after {
+  content: "😎";
+}

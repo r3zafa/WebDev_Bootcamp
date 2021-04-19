@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validate Form enteries</title>
+</head>
+<body>
+
+<h2> Validation Demo</h2>
+
+    <form action="/dummy">
+        <p>
+            <label for="firstname">Enter your firstname: </label>
+            <input type="text" placeholder="firstname" id="firstname" name="firstname" required> 
+                                                                                <!-- required is an validation attribute for input-->
+        </p>
+        <p>
+            <label for="username">Enter your username:</label>
+            <input type="username" placeholder="username" id="username" name="username" required minlength="5" maxlength="20"> 
+                                                                                <!-- "minlength" and "maxlength" is another validation attrinute -->
+                                                                                <!-- "min" and "max" are also other types of required attribute for numbers-->
+                                                                                <!-- pattern are another attribute to make validation. we will learn it later-->
+        </p>        
+        <p>
+            <label for="email"> Enter your email address:</label>
+            <input type="email" name="email" id="email" required> <!-- some of types of input as example email have their build in validation-->
+
+        </p>
+
+
+        <p>
+            <label for="url">Enter a valid URL:</label>
+            <input type="url" required>
+        </p>
+
+
+        <p>
+            <label for="password">Enter your password:</label>
+            <input type="password" placeholder="password" id="password" name="password" required minlength="8" maxlength="60">
+        </p>
+        <p>
+            <label for="number">Enter a number: </label>
+            <input type="number" id="number" name="number" required min="1" max="10"> 
+        </p>
+
+        <!--button-->
+        <button> submit </button> 
+
+    
+        
+    </form>
+
+
+
+</body>
+</html>

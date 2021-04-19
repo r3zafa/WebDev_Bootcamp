@@ -1,0 +1,20 @@
+h2 {
+  color: red;
+  background-color: blanchedalmond;
+}
+button {
+  color: azure;
+  background-color: darkcyan;
+}
+
+p {
+  color: saddlebrown;
+  background-color: rgb(255, 235, 205);
+}
+
+a {
+  color: #ff3311;
+}
+body {
+  background-color: #c5e;
+}

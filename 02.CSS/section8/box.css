@@ -1,0 +1,117 @@
+/*
+1- width, height
+2- border and border radius
+3- padding
+4- margin
+5- Display Property
+*/
+body {
+  margin: 0;
+}
+/*1- width, height*/
+h1 {
+  width: 70%;
+  height: 50px;
+  background-color: rgb(204, 175, 231);
+  text-align: center;
+}
+
+div {
+  width: 70%;
+  height: fit-content;
+}
+/*2- border and border radius
+  border-width, border-color, border-style, border-radius
+*/
+h1 {
+  border-width: 1px;
+  border-color: rgb(0, 0, 0);
+  border-style: solid;
+  border-radius: 10px 10px 10px 10px;
+}
+
+#one {
+  background-color: #da7575;
+  border-width: 4px;
+  border-color: #0c0c0c;
+  border-style: solid;
+  box-sizing: border-box;
+}
+
+#two {
+  background-color: #606eeb;
+  border-color: #111111;
+  border-style: dashed;
+  border-width: 7px;
+  border-left-color: #6d2c06;
+  border-left-width: 10px;
+  border-left-style: solid;
+}
+
+#three {
+  background-color: #80dfb2;
+  border: 4px solid #1616dd;
+  border-right-style: dotted;
+  border-radius: 3% 10% 10% 10%;
+}
+
+/*
+3- padding
+*/
+
+h1 {
+  /* padding-left: 100px;
+  padding-top: 50px; */
+  padding: 4%;
+}
+div {
+  padding: 2%;
+}
+
+button {
+  padding: 9px 20px;
+}
+
+/*
+4- margin
+*/
+
+h1,
+div,
+button {
+  margin: 2%;
+}
+
+#one {
+  margin-left: 25%;
+  margin-top: 10%;
+}
+
+#two {
+  margin-left: 10%;
+}
+
+#three {
+  margin-left: 20%;
+}
+
+button {
+  margin-top: 5%;
+  margin-left: 40%;
+}
+
+/*
+5- Display Property
+inlin, block, inline-block
+how to move a span top or down within another elements
+
+  /* display: inline-block;
+     display:none;   
+  */
+*/ span {
+  margin-left: 50px;
+  border: 3px solid blue;
+  border-radius: 10px;
+  background-color: blue;
+  color: aliceblue;
+}

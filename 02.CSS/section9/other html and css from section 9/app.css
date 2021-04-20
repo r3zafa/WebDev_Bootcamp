@@ -1,0 +1,134 @@
+body {
+  background-color: yellow;
+}
+
+#rgba {
+  width: 200px;
+  height: 200px;
+  background-color: rgba(231, 90, 34, 0.4);
+}
+
+#opacity {
+  width: 200px;
+  height: 200px;
+  background-color: yellow;
+  opacity: 0.3;
+}
+
+div {
+  background-color: turquoise;
+  width: 90px;
+  height: 90px;
+  border: 2px solid black;
+  margin: 10px;
+  display: inline-block;
+}
+
+#div2 {
+  background-color: tomato;
+  width: 80px;
+  height: 80px;
+  border: 2px solid black;
+  margin: 10px;
+  display: inline-block;
+}
+
+#static #div2 {
+  position: static;
+  top: 100px; /*that does nothing, because position is static*/
+}
+
+#relative #div2 {
+  position: relative;
+  top: 30px;
+  left: 50px;
+}
+
+#absolute {
+  position: relative;
+}
+#absolute #div2 {
+  position: absolute;
+  top: 10px;
+  left: 200px;
+}
+
+#fixed #div2 {
+  position: fixed;
+  top: 100px;
+  left: 400px;
+}
+.circle {
+  width: 90px;
+  height: 90px;
+  background-color: brown;
+  transition: 1s;
+}
+
+.circle:hover {
+  background-color: rgb(35, 223, 107);
+  border-radius: 50%;
+}
+
+.circle2 {
+  width: 90px;
+  height: 90px;
+  background-color: brown;
+  transition: background-color 5s;
+}
+
+.circle2:hover {
+  background-color: rgb(35, 223, 107);
+  border-radius: 50%;
+}
+
+.circle3 {
+  width: 90px;
+  height: 90px;
+  background-color: brown;
+  transition: background-color 3s 1s; /*1s delay*/
+}
+
+.circle3:hover {
+  background-color: rgb(35, 223, 107);
+  border-radius: 50%;
+}
+
+.circle4 {
+  width: 90px;
+  height: 90px;
+  background-color: brown;
+  transition: all 1s 1s;
+}
+
+.circle4:hover {
+  background-color: rgb(35, 223, 107);
+  border-radius: 50%;
+}
+
+.circle5 {
+  width: 90px;
+  height: 90px;
+  background-color: brown;
+  transition: background-color 1s, border-radius 2s;
+}
+
+.circle5:hover {
+  background-color: rgb(35, 223, 107);
+  border-radius: 50%;
+}
+
+.left-tr div:hover {
+  background-color: blue;
+  margin-left: 200px;
+  transition: margin-left 1s 0.5s;
+}
+
+.transition-timing-function div:hover {
+  background-color: blue;
+  margin-left: 200px;
+  transition: margin-left 1s 0.5s ease-in;
+  /*
+  or transition-timing-function:ease-in or ...
+  */
+}

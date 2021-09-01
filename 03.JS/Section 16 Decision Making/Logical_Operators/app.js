@@ -43,3 +43,22 @@ if (!(age >= 0 && age < 5 || age >= 65)) {
 
 
 
+//------------------switch--------------------
+
+let day = 2;
+
+switch (day) {
+
+    case 1:
+        console.log('1');
+        break;
+    case 2:
+        console.log('2');
+        break;
+    case 3:
+        console.log('3');
+        break;
+    default:
+        console.log('do not know');
+
+}

@@ -6,7 +6,7 @@ msg += '"exit" to go out';
 let input = prompt(msg);
 input = input.toLowerCase();
 
-let todoList = [];
+const todoList = [];
 
 console.log(input);
 while (input !== 'exit') {
@@ -28,10 +28,14 @@ while (input !== 'exit') {
         }
         console.log('***************************')
     } else if (input === 'del') {
+        const toBeDeleted = parseInt(prompt('Enter the Number of todo to delete it.'));
+        if (!Number.isNaN(toBeDeleted)) {
+            const deleted = todoList.splice(toBeDeleted, 1);
+            console.log(` ${toBeDeleted} ${todoList[toBeDeleted]} is now deleted from your todo List`);
+        } else {
+            console.log('not a valid index');
+        }
 
-        let toBeDeleted = parseInt(prompt('Enter the Number of todo to delete it.'));
-        let deleted = todoList.splice(toBeDeleted, 1);
-        console.log(` ${toBeDeleted} ${todoList[toBeDeleted]} is now deleted from your todo List`);
     } else {
         console.log('False input. use a commend from following list\n', msg);
     }

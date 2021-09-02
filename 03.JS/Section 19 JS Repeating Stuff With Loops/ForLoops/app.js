@@ -36,6 +36,13 @@ for (i = 0; i < color.length; i++) {
     console.log(color[i]);
 };
 
+const people = ["Scooby", "Velma", "Daphne", "Shaggy", "Fred"]; //DONT TOUCH THIS LINE!
+
+// WRITE YOUR LOOP BELOW THIS LINE:
+for (let i = 0; i < people.length; i++) {
+    let q = people[i].toUpperCase();
+    console.log(q)
+};
 // ======================================
 // MORE EXAMPLES OF FOR LOOPS!
 // ======================================

@@ -29,7 +29,21 @@ for (let subreddit of subreddits) {
 //     }
 // }
 
+// for of with string
 // for (let char of "hello world") {
 //     console.log(char)
 // }
 
+
+
+let sum = [];
+let count = 0;
+for (val of numbers) {
+
+    let value = val * val;
+    sum[count] = value
+    count++
+
+};
+
+console.log(sum)

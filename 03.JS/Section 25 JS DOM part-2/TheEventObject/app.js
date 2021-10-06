@@ -1,6 +1,9 @@
-document.querySelector('button').addEventListener('click', function (evt) {
+document.querySelector('button').addEventListener('click', function(evt) {
     console.log(evt)
 })
+
+
+// keyup and keydown events
 
 // const input = document.querySelector('input');
 // input.addEventListener('keydown', function (e) {
@@ -11,7 +14,7 @@ document.querySelector('button').addEventListener('click', function (evt) {
 //     console.log("KEYUP")
 // })
 
-window.addEventListener('keydown', function (e) {
+window.addEventListener('keydown', function(e) {
     switch (e.code) {
         case 'ArrowUp':
             console.log("UP!");
@@ -26,6 +29,6 @@ window.addEventListener('keydown', function (e) {
             console.log("RIGHT!");
             break
         default:
-            console.log("IGNORED!")
+            console.log(e.code, e.key)
     }
 })

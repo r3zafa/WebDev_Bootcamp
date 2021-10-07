@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditionals in EJS</title>
+</head>
+
+<body>
+
+    <h4>Generating random number and recognize even/odd numbers </h4>
+
+    <% if (rand % 2 === 0) { %>
+        <h3>its an even number!
+            <%= rand %>
+        </h3>
+        <% } else { %>
+            <h3>its an odd number!:
+                <%= rand %>
+            </h3>
+            <% }  %>
+
+                <!-- single line if condition -->
+
+                <h4>
+                    single line if condition:
+                    <%= rand%2===0 ? 'EVEN':'ODD' %>
+                </h4>
+
+
+</body>
+
+</html>

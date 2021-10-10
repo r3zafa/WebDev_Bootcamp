@@ -1,0 +1,17 @@
+<%- include('partials/head') %>
+
+
+    <body>
+        <%- include('partials/navbar') %>
+
+            <h1>here is your random number:</h1>
+            <h2>
+                <!-- <%= Math.floor(Math.random() * 10) + 1 %> -->
+                <!-- we can generate the random numbers here. but the better way is to 
+            generate them in index.js file and put it here -->
+                <%= rand %>
+            </h2>
+
+    </body>
+
+    </html>

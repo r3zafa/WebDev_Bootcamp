@@ -1,0 +1,26 @@
+<%- include('partials/head') %>
+
+
+    <body>
+        <%- include('partials/navbar') %>
+
+            <h1>Looping over an array in EJS</h1>
+            <ul>
+                <% for( let index = 0; index < arr.length; index++ ) { %>
+                    <li>
+                        <%= arr[index] %>
+                    </li>
+                    <% } %>
+            </ul>
+
+            <ul>
+                <% for( let a in arr ) { %>
+                    <li>
+                        <%= arr[a] %>
+                    </li>
+                    <% } %>
+            </ul>
+
+    </body>
+
+    </html>

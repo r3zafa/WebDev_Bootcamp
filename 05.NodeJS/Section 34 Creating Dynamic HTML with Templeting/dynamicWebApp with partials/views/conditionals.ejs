@@ -1,0 +1,29 @@
+<%- include('partials/head') %>
+
+
+    <body>
+        <%- include('partials/navbar') %>
+
+            <h4>Generating random number and recognize even/odd numbers </h4>
+
+            <% if (rand % 2 === 0) { %>
+                <h3>its an even number!
+                    <%= rand %>
+                </h3>
+                <% } else { %>
+                    <h3>its an odd number!:
+                        <%= rand %>
+                    </h3>
+                    <% }  %>
+
+                        <!-- single line if condition -->
+
+                        <h4>
+                            single line if condition:
+                            <%= rand%2===0 ? 'EVEN':'ODD' %>
+                        </h4>
+
+
+    </body>
+
+    </html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../components/head') %>
+
+    <body>
+        <%- include('../components/navbar') %>
+            <div class="container mt-5">
+                <h1>List of Comments</h1>
+                <ul class="list-group list-group-flush">
+                    <% for( let c of comments ) { %>
+                        <li class="list-group-item">
+                            <span class="bg-info rounded-pill px-2 py-1 mr-2 text-white">
+                                <%= c.username %>
+                            </span>
+                            <%= c.comment %>
+                                <a class="btn btn-sm btn-outline-danger rounded-pill ml-1 py-0" href="/comments/<%= c.id %> ">
+                                 details
+                                </a>
+                        </li>
+                        <% } %>
+                </ul>
+                <a class="btn btn-primary mt-4 ml-3" href="/comments/new">new comment</a>
+            </div>
+    </body>
+
+</html>

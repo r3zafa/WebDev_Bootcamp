@@ -1,0 +1,103 @@
+// closing mongo 
+ctrl + c
+//to see all databases
+show dbs
+//to create a new db 
+use [dbName]
+//show db in uses 
+db
+// show collections in db
+show collections
+// enter one information in db
+db.dogs.insertOne({name:'Charlie', age: 3, breed: 'Corgi', catFriendly: true})
+//if this was added to db in use you can see it in collections
+// show collections in db
+show collections
+// to see all dogs you can do this:
+db.dogs.find() 
+//output: { "_id" : ObjectId("616403b3000dfa83c576f4f0"), "name" : "Charlie", "age" : 3, "breed" : "Corgi", "catFriendly" : true }
+
+//input many information at once 1
+
+db.[collectionName].insertMany (
+    [<doc1>,<doc2>,<doc3>,...],
+    {
+        writeConcern: <document>,
+        ordered: <boolean>
+    }
+)
+
+// general method to input data in db
+db.[collectionName].insert()
+//example:
+db.dogs.insert(
+    [
+        {name:'Chad', age: 14, breed: 'golden', catFriendly: false},
+        {name:'tony', age: 17, breed: 'chihuahua', catFriendly: true}
+
+    ]
+)
+//result: 
+// BulkWriteResult({
+//        "writeErrors" : [ ],
+//        "writeConcernErrors" : [ ],
+//        "nInserted" : 2,
+//        "nUpserted" : 0,
+//        "nMatched" : 0,
+//        "nModified" : 0,
+//        "nRemoved" : 0,
+//        "upserted" : [ ]
+// })
+
+db.cats.insert(
+    {
+        name: 'blue steele',
+        age: 6,
+        dogFriendly: false,
+        breed: 'Scottish fold'
+    }
+)
+//result: WriteResult({ "nInserted" : 1 })
+
+ db.cats.find()
+//result: { "_id" : ObjectId("61640834000dfa83c576f4f3"), "name" : "blue steele", "age" : 6, "dogFriendly" : false, "breed" : "Scottish fold" }
+
+
+ db.dogs.find()
+ //output:
+    { "_id" : ObjectId("616403b3000dfa83c576f4f0"), "name" : "Charlie", "age" : 3, "breed" : "Corgi", "catFriendly" : true }
+    { "_id" : ObjectId("61640713000dfa83c576f4f1"), "name" : "Chad", "age" : 14, "breed" : "golden", "catFriendly" : false }
+    { "_id" : ObjectId("61640713000dfa83c576f4f2"), "name" : "tony", "age" : 17, "breed" : "chihuahua", "catFriendly" : true }
+
+//to find data from specific sort we use queries
+db.dogs.find({breed:'Corgi'})
+//output: { "_id" : ObjectId("616403b3000dfa83c576f4f0"), "name" : "Charlie", "age" : 3, "breed" : "Corgi", "catFriendly" : true }
+
+db.dogs.find({catFriendly: true})
+//output
+    { "_id" : ObjectId("616403b3000dfa83c576f4f0"), "name" : "Charlie", "age" : 3, "breed" : "Corgi", "catFriendly" : true }
+    { "_id" : ObjectId("61640713000dfa83c576f4f2"), "name" : "tony", "age" : 17, "breed" : "chihuahua", "catFriendly" : true }
+
+
+//to find just one result we can also use findOne() method
+db.dogs.findOne({catFriendly: true})
+//output is actual document but find() return a cursor(is something like pointer or as reference but its not the same as having the result immediately)
+{
+        "_id" : ObjectId("616403b3000dfa83c576f4f0"),
+        "name" : "Charlie",
+        "age" : 3,
+        "breed" : "Corgi",
+        "catFriendly" : true
+}
+
+
+// CRUD - Creating with insert() method variants, read with find() method variants.
+// next is updating and Deleting from db
+
+
+----- see updating readme file in directory
+----- see deleting readme file in directory
+
+
+
+

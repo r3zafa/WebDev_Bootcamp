@@ -1,0 +1,32 @@
+// CRUD - last section Deleting information's from db
+
+2 option's are present: deleteOne(), deleteMany()
+
+db.dogs.find()
+//result:
+{ "_id" : ObjectId("616403b3000dfa83c576f4f0"), "name" : "Charlie", "age" : 4, "breed" : "Corgi", "catFriendly" : false, "color" : "black" }
+{ "_id" : ObjectId("61640713000dfa83c576f4f1"), "name" : "Chad", "age" : 14, "breed" : "golden", "catFriendly" : false }
+{ "_id" : ObjectId("61640713000dfa83c576f4f2"), "name" : "tony", "age" : 17, "breed" : "chihuahua", "catFriendly" : false }
+
+db.dogs.deleteOne({name: 'Chad'})
+//result:
+{ "acknowledged" : true, "deletedCount" : 1 }
+
+db.dogs.find() //again
+//result:
+{ "_id" : ObjectId("616403b3000dfa83c576f4f0"), "name" : "Charlie", "age" : 4, "breed" : "Corgi", "catFriendly" : false, "color" : "black" }
+{ "_id" : ObjectId("61640713000dfa83c576f4f2"), "name" : "tony", "age" : 17, "breed" : "chihuahua", "catFriendly" : false }
+
+db.dogs.deleteMany({catFriendly: false})
+//result
+{ "acknowledged" : true, "deletedCount" : 2 }
+
+db.dogs.find()
+//result: -----
+
+show collections
+// result:
+cats
+dogs
+
+db.dogs.deleteMany({}) // remove the entire objects in collections of dogs

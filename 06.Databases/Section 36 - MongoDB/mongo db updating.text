@@ -1,0 +1,51 @@
+// CRUD - the next things to learn is U:Updating data
+we need to know 2 things:
+1. we need to find what we want to update
+2. we need to know how we want to update it.
+
+basic:
+db.dogs.find()
+//output:
+{ "_id" : ObjectId("616403b3000dfa83c576f4f0"), "name" : "Charlie", "age" : 3, "breed" : "Corgi", "catFriendly" : true }
+{ "_id" : ObjectId("61640713000dfa83c576f4f1"), "name" : "Chad", "age" : 14, "breed" : "golden", "catFriendly" : false }
+{ "_id" : ObjectId("61640713000dfa83c576f4f2"), "name" : "tony", "age" : 17, "breed" : "chihuahua", "catFriendly" : true }
+// how about updating the age of one dogs
+// to do that we need to know which method I'm using: updateOne(), UpdateMany(), replaceOne()
+//template: db.dogs.updateOne({selector:objectID,name,etc.},{operator:$set, ...:{operand: age,... : value}})
+db.dogs.updateOne({name:'Charlie'},{$set: {age: 4}})
+//output:
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+db.dogs.find() // again
+//output:
+{ "_id" : ObjectId("616403b3000dfa83c576f4f0"), "name" : "Charlie", "age" : 4, "breed" : "Corgi", "catFriendly" : true }
+{ "_id" : ObjectId("61640713000dfa83c576f4f1"), "name" : "Chad", "age" : 14, "breed" : "golden", "catFriendly" : false }
+{ "_id" : ObjectId("61640713000dfa83c576f4f2"), "name" : "tony", "age" : 17, "breed" : "chihuahua", "catFriendly" : true }
+// the age in first entry is updated from 3 to 4
+// if we assign a value that was not included in the object (in the past) the object will be updated to include it.
+
+db.dogs.updateOne({name:'Charlie'},{$set: {color: 'black'}}) //color wasn't predefined
+//result:
+{ "_id" : ObjectId("616403b3000dfa83c576f4f0"), "name" : "Charlie", "age" : 4, "breed" : "Corgi", "catFriendly" : true, "color" : "black" }
+
+//UpdateMany() for example to change a specific value of many objects at the same time
+
+db.dogs.updateMany({catFriendly:true},{$set:{catFriendly:false}})
+// output:
+{ "acknowledged" : true, "matchedCount" : 2, "modifiedCount" : 2 }
+
+db.dogs.find()
+//output:
+{ "_id" : ObjectId("616403b3000dfa83c576f4f0"), "name" : "Charlie", "age" : 4, "breed" : "Corgi", "catFriendly" : false, "color" : "black" }
+{ "_id" : ObjectId("61640713000dfa83c576f4f1"), "name" : "Chad", "age" : 14, "breed" : "golden", "catFriendly" : false }
+{ "_id" : ObjectId("61640713000dfa83c576f4f2"), "name" : "tony", "age" : 17, "breed" : "chihuahua", "catFriendly" : false }
+
+// other operators like : currentDate()
+db.cats.updateOne({age:6},{$set: {age:7}, $currentDate: {lastChanged:true}})
+// output: { "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+db.cats.find()
+// currentDate is added to object
+// output: { "_id" : ObjectId("61640834000dfa83c576f4f3"), "name" : "blue steele", "age" : 7, "dogFriendly" : false, "breed" : "Scottish fold", "lastChanged" : ISODate("2021-10-11T13:41:07.471Z") }
+
+// if we want to replace entire document we can use replaceOne() this keep the same _id tho 

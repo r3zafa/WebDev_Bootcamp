@@ -1,0 +1,51 @@
+ db.dogs.find()
+ //result:
+{ "_id" : ObjectId("61645aec5863e1ff6bf65430"), "name" : "lucy", "age" : 12, "breed" : "dogX", "personality" : { "childFriendly" : true, "catFriendly" : false } }
+{ "_id" : ObjectId("61645b155863e1ff6bf65431"), "name" : "lucky", "age" : 11, "breed" : "dogY", "personality" : { "childFriendly" : false, "catFriendly" : true } }
+{ "_id" : ObjectId("61645b295863e1ff6bf65432"), "name" : "luckyX", "age" : 3, "breed" : "dogXY", "personality" : { "childFriendly" : false, "catFriendly" : true } }
+{ "_id" : ObjectId("61645b3f5863e1ff6bf65433"), "name" : "luckyXY", "age" : 31, "breed" : "dogXYZ", "personality" : { "childFriendly" : true, "catFriendly" : true } }
+
+
+
+//referring to an object inside an object
+example: 
+db.dogs.find({'personality.childFriendly' :true})
+//result:
+{ "_id" : ObjectId("61645aec5863e1ff6bf65430"), "name" : "lucy", "age" : 12, "breed" : "dogX", "personality" : { "childFriendly" : true, "catFriendly" : false } }
+{ "_id" : ObjectId("61645b3f5863e1ff6bf65433"), "name" : "luckyXY", "age" : 31, "breed" : "dogXYZ", "personality" : { "childFriendly" : true, "catFriendly" : true } }
+
+db.dogs.find({'personality.childFriendly' :false, age:3})
+//result:
+{ "_id" : ObjectId("61645b295863e1ff6bf65432"), "name" : "luckyX", "age" : 3, "breed" : "dogXY", "personality" : { "childFriendly" : false, "catFriendly" : true } }
+
+
+
+more query and objects operators
+Comparison:
+$eq - Matches values that are equal to a specified value.
+$gt - Matches values that are greater than a specified value.
+$gte - Matches values that are greater than or equal to a specified value.
+$in - Matches any of the values specified in an array.
+$lt - Matches values that are less than a specified value.
+$lte - Matches values that are less than or equal to a specified value.
+$ne - Matches all values that are not equal to a specified value.
+$nin - Matches none of the values specified in an array.
+
+and more .... https://docs.mongodb.com/manual/reference/operator/query/
+
+example: db.dogs.find( { age: { $gt: 11 } } )
+// result:
+{ "_id" : ObjectId("61645aec5863e1ff6bf65430"), "name" : "lucy", "age" : 12, "breed" : "dogX", "personality" : { "childFriendly" : true, "catFriendly" : false } }
+{ "_id" : ObjectId("61645b3f5863e1ff6bf65433"), "name" : "luckyXY", "age" : 31, "breed" : "dogXYZ", "personality" : { "childFriendly" : true, "catFriendly" : true } }
+
+db.dogs.find( { age: { $lt: 10 } } )
+//result: { "_id" : ObjectId("61645b295863e1ff6bf65432"), "name" : "luckyX", "age" : 3, "breed" : "dogXY", "personality" : { "childFriendly" : false, "catFriendly" : true } }
+
+> db.dogs.find( { $or: [ {age: {$lt:12}}, {'personality.catFriendly':true}]})
+{ "_id" : ObjectId("61645b155863e1ff6bf65431"), "name" : "lucky", "age" : 11, "breed" : "dogY", "personality" : { "childFriendly" : false, "catFriendly" : true } }
+{ "_id" : ObjectId("61645b295863e1ff6bf65432"), "name" : "luckyX", "age" : 3, "breed" : "dogXY", "personality" : { "childFriendly" : false, "catFriendly" : true } }
+{ "_id" : ObjectId("61645b3f5863e1ff6bf65433"), "name" : "luckyXY", "age" : 31, "breed" : "dogXYZ", "personality" : { "childFriendly" : true, "catFriendly" : true } }
+> db.dogs.find( { $or: [ {age: {$lt:12}}, {'personality.catFriendly':false}]})
+{ "_id" : ObjectId("61645aec5863e1ff6bf65430"), "name" : "lucy", "age" : 12, "breed" : "dogX", "personality" : { "childFriendly" : true, "catFriendly" : false } }
+{ "_id" : ObjectId("61645b155863e1ff6bf65431"), "name" : "lucky", "age" : 11, "breed" : "dogY", "personality" : { "childFriendly" : false, "catFriendly" : true } }
+{ "_id" : ObjectId("61645b295863e1ff6bf65432"), "name" : "luckyX", "age" : 3, "breed" : "dogXY", "personality" : { "childFriendly" : false, "catFriendly" : true } }

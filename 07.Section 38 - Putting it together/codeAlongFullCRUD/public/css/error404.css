@@ -1,0 +1,71 @@
+.NotFoundBody {
+    margin: 5px;
+    background-color: #0404a1;
+    color: #bbb;
+    font-family: 'more_perfect_dos_vgaregular', 'Courier New', monospace;
+    font-size: 10px;
+    height: 90vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width: 300px) {
+    .NotFoundBody {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 600px) {
+    .NotFoundBody {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 900px) {
+    .NotFoundBody {
+        font-size: 20px;
+        font-weight: 400;
+    }
+}
+
+.notfound {
+    width: 65ch;
+    height: 25ch;
+    background-color: #0404a1;
+}
+
+.row {
+    text-align: left;
+}
+
+.centered {
+    text-align: center;
+}
+
+.inverted {
+    background-color: #bbb;
+    color: #0404a1;
+}
+
+.shadow {
+    background-color: #000;
+    color: #0404a1;
+}
+
+.blink {
+    animation: blinkingText .8s infinite;
+}
+
+@keyframes blinkingText {
+    0% {
+        opacity: 0;
+    }
+    49% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}

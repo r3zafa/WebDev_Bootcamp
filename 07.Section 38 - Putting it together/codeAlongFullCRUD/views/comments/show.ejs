@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../components/head') %>
+
+    <body>
+        <%- include('../components/navbar') %>
+
+            <div class="container mt-5">
+                <h4 class="text-center bg-dark text-white py-2">
+                    comment id:
+                    <%= c.id %>
+                </h4>
+                <p class="text-center py-3">
+                    <span class="bg-info rounded-pill px-2 text-white mr-2">
+                        <b>
+                            <%= c.username %>
+                        </b>
+                    </span> :
+                    <%= c.comment %>
+                </p>
+
+
+                <a class="btn btn-sm btn-outline-dark" href="/comments">
+                    back to overview
+                </a>
+                <a class="btn btn-sm btn-outline-warning ml-1" href="/comments/<%= c.id %>/edit ">
+                    edit
+               </a>
+                <form class="d-inline" action="/comments/<%= c.id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-sm btn-outline-danger ml-1">DELETE</button>
+                </form>
+
+
+            </div>
+
+    </body>
+
+</html>

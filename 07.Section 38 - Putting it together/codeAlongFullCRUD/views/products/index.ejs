@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../components/head') %>
+
+    <body>
+        <%- include('../components/navbar') %>
+            <div class="container my-5">
+                <h1>List of Comments</h1>
+                <ul class="list-group list-group-flush">
+
+                    <% for( let p of products ) { %>
+                        <li class="list-group-item productList">
+                            Product: <%= p.name %> ------ Price: <%= p.price %> ------ category: <%= p.category %>  
+                        </li>
+                    <% } %>
+                    
+                </ul>
+                <a class="btn btn-primary mt-4 ml-3" href="/comments/new">new comment</a>
+            </div>
+            <%- include('../components/footer') %>
+
+    </body>
+
+</html>

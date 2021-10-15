@@ -5,3 +5,4 @@
 05.NodeJS/Section 32 NPM and Explorings Modules/Artster/.DS_Store
 06.Databases/mongodb-windows-x86_64-5.0.3-signed.msi
 *.msi
+ node_modules/

@@ -7,7 +7,7 @@
             <div class="container mt-5">
                 <h1 class="text-center mb-4">Edit Product</h1>
 
-                <form action="/products/<%= oneProduct.id %>?_method=PATCH  " method="POST">
+                <form action="/products/<%= oneProduct.id %>?_method=PUT  " method="POST">
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -18,7 +18,7 @@
                             </span>
                         </div>
 
-                        <input value="<%= oneProduct.name %>" type="text" required name="productName" class="form-control" placeholder="Product name" aria-label="productName" aria-describedby="productName">
+                        <input value="<%= oneProduct.name %>" type="text" required name="name" class="form-control" placeholder="Product name" aria-label="productName" aria-describedby="productName">
                     </div>
 
                     <div class="input-group mb-3">
@@ -30,21 +30,21 @@
                             </span>
                         </div>
 
-                        <input value="<%= oneProduct.price %>" type=" number " required name="priceUpdate" class="form-control " placeholder="Price " aria-label="price " aria-describedby="price ">
+                        <input value="<%= oneProduct.price %>" type=" number " required name="price" class="form-control " placeholder="Price " aria-label="price " aria-describedby="price ">
                     </div>
 
-                    <div class="input-group mb-3 ">
-                        <div class="input-group-prepend ">
-                            <span class="input-group-text " id="tag ">
-                                    <svg xmlns="http://www.w3.org/2000/svg " width="16 " height="16 " fill="currentColor " class="bi bi-tags-fill " viewBox="0 0 16 16 ">
-                                        <path d="M2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2zm3.5 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z "/>
-                                        <path d="M1.293 7.793A1 1 0 0 1 1 7.086V2a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l.043-.043-7.457-7.457z "/>
-                                    </svg>
-                            </span>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="inputGroupSelect01">Category</label>
                         </div>
-
-                        <input value="<%= oneProduct.category %>" type="text" required name="tagUpdate" class="form-control" placeholder="Category" aria-label="category" aria-describedby="tag">
-                    </div>
+                        <select name="category" class="custom-select" id="inputGroupSelect01">
+                          <option selected>Choose...</option>
+                          <option value="fruit" <%= oneProduct.category === 'fruit' ? 'selected':'' %>>fruit</option>
+                          <option value="vegetable" <%= oneProduct.category === 'vegetable' ? 'selected':'' %>>vegetable</option>
+                          <option value="dairy" <%= oneProduct.category === 'dairy' ? 'selected':'' %>>dairy</option>
+                        </select>
+                      </div>
 
 
 

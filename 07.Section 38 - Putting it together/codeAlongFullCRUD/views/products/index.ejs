@@ -5,7 +5,11 @@
     <body>
         <%- include('../components/navbar') %>
             <div class="container my-5">
-                <h1>List of Products</h1>
+                <h1>
+                    <%= category %> - Products
+                </h1>
+
+                
                 <ul class="list-group list-group-flush">
 
                     <% for( let p of products ) { %>
@@ -13,14 +17,14 @@
                             <span class="bg-danger text-white rounded-pill py-1 px-2 mr-1 my-1">
                                 <%= p.name %>
                             </span>
-                            <span class="bg-info text-white rounded-pill py-1 px-2 mr-1 my-1">
-                                <%= p.category %>
-                            </span>
                             <span class="bg-dark text-white rounded-pill py-1 px-2 mr-1 my-1">
                                 Price: <%= p.price %>
                             </span>
                             <a class="btn btn btn-outline-warning rounded-pill py-1 px-2 mr-1 my-1" href="/products/<%= p.id %> ">
                                 details
+                            </a>
+                            <a class="btn btn btn-outline-info rounded-pill py-1 px-2 mr-1 my-1" href="/products?category=<%= p.category %>">
+                                Tag: <%= p.category %>
                             </a>
 
 
@@ -28,8 +32,14 @@
                         <% } %>
 
                 </ul>
-                <a class="btn btn-primary mt-4 ml-3" href="/products/new">new product</a>
-            </div>
+                <a class="btn btn-dark mt-4 ml-3" href="/products/new">new product</a>
+
+                <% if (category!=='All') { %>
+                    <a class="btn btn-danger mt-4 ml-2" href="/products">All products</a>
+                    <% } else { %>
+
+                    <% }  %>
+                </div>
             <%- include('../components/footer') %>
 
     </body>

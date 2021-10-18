@@ -36,28 +36,34 @@ app.get('/', (reg, res) => {
 });
 
 app.get('/products', async(req, res) => {
+    const {category} = req.query;
     const title = 'Products';
-    const products = await Product.find({});
-    res.render('products/index', { title: title, products: products });
+
+    if(category){
+        const products = await Product.find({category: category});
+        res.render('products/index', { title: title, products: products, category });
+
+    } else {
+        const products = await Product.find({});
+        res.render('products/index', { title: title, products: products, category: 'All' });
+    }
+
 });
 
-app.post('/products', (req, res) => {
-    const { price, tag, productName } = req.body;
-    const newProduct = new Product({ name: productName, price: price, category: tag });
-    newProduct.save()
-        .then(data => {
-            console.log('following data was saved to', dbName, 'as you see under:')
-            console.log(data);
-        })
-        .catch(err => console.log('ERROR:', err));
-    res.redirect('/products');
-});
-
+// ######################### new ################################
 app.get('/products/new', (req, res) => {
     const title = 'add new Products';
     res.render('products/newProduct', { title: title });
 });
 
+app.post('/products', async (req, res) => {
+    const { price, tag, productName } = req.body;
+    const product = new Product({ name: productName, price: price, category: tag });
+    await product.save();
+    res.redirect(`/products/${product._id}`);
+});
+
+// ######################### details ###############################
 app.get('/products/:id', async(req, res) => {
     const title = 'Product detail';
     const { id } = req.params;
@@ -66,52 +72,25 @@ app.get('/products/:id', async(req, res) => {
     res.render('products/showProduct', { title: title, oneProduct: oneProduct });
 });
 
-app.post('/products/:id', async(req, res) => {
-    const { comment, id } = req.body;
-    const oneProduct = await Product.findById(id);
-    oneProduct.update({ _id: id }, { "$push": { "comments": comment } })
-        .then(data => {
-            console.log('following data was saved to', dbName, 'as you see under:')
-            console.log(data);
-        })
-        .catch(err => console.log('ERROR:', err));
-    res.redirect('/products/id');
-});
-
-app.get('/products/:id/new/comment', async(req, res) => {
-    const title = 'add new comment';
-    const { id } = req.params;
-    console.log(id);
-    const oneProduct = await Product.findById(id);
-    res.render('products/newComment', { title: title, oneProduct: oneProduct });
-
-});
+// ######################### Edit ###############################
 app.get('/products/:id/edit', async(req, res) => {
     const title = 'Edit Product';
     const { id } = req.params;
-    console.log(id);
-    const oneProduct = await Product.findById(id);
-    res.render('products/editProduct', { title: title, oneProduct: oneProduct });
+    const product = await Product.findById(id);
+    res.render('products/editProduct', { title: title, oneProduct: product });
 
 });
 
-app.patch('/products/:id', async(req, res) => {
+app.put('/products/:id', async(req, res) => {
     const { id } = req.params;
-    const newName = req.body.productName;
-    const newPrice = req.body.priceUpdate;
-    const newTag = req.body.tagUpdate;
-    await Product.findOneAndUpdate({ id: 'id' }, { name: newName, price: newPrice, category: newTag })
-        .then(m => console.log(m))
-        .catch(err => console.log(err));
-    res.redirect('/products');
+    const product = await Product.findByIdAndUpdate(id, req.body, {runValidators: true, new:true} )
+    res.redirect(`/products/${product._id}`);
 });
 
+// ######################### Delete ###############################
 app.delete('/products/:id', async(req, res) => {
     const { id } = req.params;
-    await Product.findOneAndRemove({ id: 'id' })
-        .then(e => console.log(e))
-        .catch(err => console.log(err));
-
+    await Product.findByIdAndDelete(id)
     res.redirect('/products');
 })
 

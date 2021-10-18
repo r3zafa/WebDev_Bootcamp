@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../components/head') %>
+
+    <body>
+        <div class="container mt-5 px-5">
+            <h3 class="mx-auto text-center mb-4">
+                add your comment
+            </h3>
+            <p>
+                product name:
+                <%= oneProduct.name %>
+            </p>
+            <form action="/products/:id" method="post">
+
+                <div class="form-group">
+                    <label for="comment">your comment:</label>
+                    <textarea name="comment" class="form-control" rows="5" id="comment"></textarea>
+                </div>
+                <button class="btn btn-primary mt-3">Submit</button>
+                <a href="/products/:id/" class="btn btn-outline-danger mt-3">Cancel</a>
+
+            </form>
+
+        </div>
+
+    </body>
+
+</html>

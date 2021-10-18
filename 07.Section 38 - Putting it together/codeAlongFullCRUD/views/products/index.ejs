@@ -5,17 +5,30 @@
     <body>
         <%- include('../components/navbar') %>
             <div class="container my-5">
-                <h1>List of Comments</h1>
+                <h1>List of Products</h1>
                 <ul class="list-group list-group-flush">
 
                     <% for( let p of products ) { %>
                         <li class="list-group-item productList">
-                            Product: <%= p.name %> ------ Price: <%= p.price %> ------ category: <%= p.category %>  
+                            <span class="bg-danger text-white rounded-pill py-1 px-2 mr-1 my-1">
+                                <%= p.name %>
+                            </span>
+                            <span class="bg-info text-white rounded-pill py-1 px-2 mr-1 my-1">
+                                <%= p.category %>
+                            </span>
+                            <span class="bg-dark text-white rounded-pill py-1 px-2 mr-1 my-1">
+                                Price: <%= p.price %>
+                            </span>
+                            <a class="btn btn btn-outline-warning rounded-pill py-1 px-2 mr-1 my-1" href="/products/<%= p.id %> ">
+                                details
+                            </a>
+
+
                         </li>
-                    <% } %>
-                    
+                        <% } %>
+
                 </ul>
-                <a class="btn btn-primary mt-4 ml-3" href="/comments/new">new comment</a>
+                <a class="btn btn-primary mt-4 ml-3" href="/products/new">new product</a>
             </div>
             <%- include('../components/footer') %>
 

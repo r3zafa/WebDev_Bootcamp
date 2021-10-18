@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
         maxlength: 20
-    } ,
+    },
     price: {
         type: Number,
         required: true,
@@ -15,9 +15,10 @@ const productSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        lowercase:true,
-        enum: ['fruit','vegetable','dairy']
-    }
+        lowercase: true,
+        enum: ['fruit', 'vegetable', 'dairy']
+    },
+    comments: [{ type: String }]
 });
 
 //#### {secondly - use schema's to build models} ##############

@@ -13,43 +13,42 @@ mongoose.connect(`mongodb://localhost:27017/${dbName}`)
         console.log(err);
     });
 
-    // const p = new Product({
-    //     name: 'Ruby Grapefruit',
-    //     price: 1.99,
-    //     category: 'fruit'
-    // })
+// const p = new Product({
+//     name: 'Ruby Grapefruit',
+//     price: 1.99,
+//     category: 'fruit'
+// })
 
-    // p.save()
-    //     .then( p => console.log(p))
-    //     .catch(err => console.log('ERROR:', err));
+// p.save()
+//     .then( p => console.log(p))
+//     .catch(err => console.log('ERROR:', err));
 
-    // const seedProucts = [
-    //     {
-    //         name: 'Orange',
-    //         price: 3.99,
-    //         category: 'fruit'
-    //     },
-    //     {
-    //         name: 'Apple',
-    //         price: 2.99,
-    //         category: 'fruit'
-    //     },
-    //     {
-    //         name: 'carrot',
-    //         price: 0.99,
-    //         category: 'vegetable'
-    //     },
-    //     {
-    //         name: 'Eggplanet',
-    //         price: 1.09,
-    //         category: 'vegetable'
-    //     },
-    //     {
-    //         name: 'watermelon',
-    //         price: 3.09,
-    //         category: 'fruit'
-    //     }
-    // ];
-    // Product.insertMany(seedProucts)
-    //     .then( p => console.log(p))
-    //     .catch(err => console.log('ERROR:', err));
+const seedProucts = [{
+        name: 'Orange',
+        price: 3.99,
+        category: 'fruit'
+    },
+    {
+        name: 'Apple',
+        price: 2.99,
+        category: 'fruit'
+    },
+    {
+        name: 'carrot',
+        price: 0.99,
+        category: 'vegetable'
+    },
+    {
+        name: 'Eggplanet',
+        price: 1.09,
+        category: 'vegetable'
+    },
+    {
+        name: 'watermelon',
+        price: 3.09,
+        category: 'fruit'
+    }
+];
+Product.insertMany(seedProucts)
+    .then(p => console.log(p))
+    .catch(err => console.log('ERROR:', err));

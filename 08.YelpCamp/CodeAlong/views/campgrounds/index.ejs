@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partials/head') %>
+
+    <body>
+        <div class="container my-5">
+            <h1 class="text-center my-3">
+                <%= title %>
+            </h1>
+            <a href="/" class='btn btn-sm btn-dark rounded-pill px-3'>
+               Back to homepage
+            </a>
+            <a href="/campgrounds/new" class='btn btn-sm btn-outline-danger rounded-pill px-3'>
+                Add new camps
+            </a>
+            <h3 class="my-3">
+                Total Result
+                <span class="badge-danger rounded-pill px-2">
+                    <%= countOfData %> 
+                </span>
+            </h3>
+            <ul class="list-group">
+
+                <% for( let camp of camps ) { %>
+                    <a href="/campgrounds/<%= camp.id %>" class="text-decoration-none">
+                        <li class="list-group-item list-group-item-action">
+                            <h5>
+                                <b>
+                                        Name:
+                                    </b>
+                                <%= camp.title %>
+                                    <b>
+                                        - Location:
+                                    </b>
+                                    <%= camp.location %>
+                            </h5>
+                        </li>
+                    </a>
+                    <% } %>
+            </ul>
+        </div>
+    </body>
+
+</html>

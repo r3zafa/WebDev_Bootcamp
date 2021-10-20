@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partials/head') %>
+
+    <body>
+        <div class="container my-5">
+            <a href="/campgrounds" class="btn btn-sm btn-dark rounded-pill text-white py-1 px-3">
+                <b class="p-0 my-1">
+                    Back to Overview
+                </b>
+            </a>
+            <a href="/campgrounds/<%= camp.id %>/edit " class="btn btn-sm btn-warning rounded-pill text-white">
+                <b>
+                    EDIT
+                </b>
+            </a>
+
+            <form class="d-inline float-right" action="/campgrounds/<%= camp.id %>?_method=DELETE" method="post">
+                <button class="btn btn-sm btn-danger rounded-pill text-white">
+                    <b>
+                        DELETE POST
+                    </b>
+                </button>
+            </form>
+
+
+
+            <h1 class="my-3">
+                <%= title %>
+            </h1>
+
+            <h2>
+                <%= camp.location %>
+            </h2>
+
+
+        </div>
+    </body>
+
+</html>

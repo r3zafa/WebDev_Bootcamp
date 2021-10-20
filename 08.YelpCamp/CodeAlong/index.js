@@ -4,18 +4,23 @@ const path = require('path');
 const methodOverride = require('method-override');
 const morgan = require('morgan'); //morgan log's http requests
 const fs = require('fs'); //to build log file
+const ejsMate = require('ejs-mate');
 // Start App ##########################################################
 const app = express();
 app.use(methodOverride('_method')); //patch,delete,...
 app.use(express.json()); //parsing json
 app.use(express.urlencoded({ extended: true })); //parsing url
 app.use(express.static(path.join(__dirname, 'public'))); // css,js,... directory
+
+//ejs-mate a partial template functions for the EJS template engine
+app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs'); // render engine
 app.set('views', path.join(__dirname, 'views')); // template directory
 
 // Database connection #################################################
 const dbName = 'yelpCamp';
 const Campground = require('./models/campground');
+const { application } = require('express');
 
 mongoose.connect(`mongodb://localhost:27017/${dbName}`)
     .then(() => {
@@ -32,9 +37,9 @@ const eventLoggerFile = fs.createWriteStream(path.join(__dirname, 'access.log'),
 app.use(morgan('tiny', { stream: eventLoggerFile }));
 
 // defining middleware's ##############################################
+//if we dont use next we can nut go to next middleware // next(); 
 // app.use((req, res, next) => {
 //     console.log("hi from first middleware - if you return next() instead of just calling next(). the code after returning do not get executed after other middleware.");
-//     // next(); // if we dont use next we can nut go to next middleware
 //     return next();
 //     console.log('hi from first middleware - after next()');
 // });
@@ -61,25 +66,26 @@ app.use(morgan('tiny', { stream: eventLoggerFile }));
 
 // rooting ############################################################
 
-app.get('/', (req, res) => {
+app.get('/', async(req, res) => {
+    const dataCount = await Campground.countDocuments({});
     const title = 'home';
-    res.render('index', { title: title });
+    res.render('index', { title, dataCount });
 });
 
 // #### campgrounds main page
 app.get('/campgrounds', async(req, res) => {
     const title = 'Campgrounds';
     const camps = await Campground.find({});
-    const countOfData = await Campground.countDocuments({});
+    // const countOfData = await Campground.countDocuments({});
     // res.send(camps); // just for test
     // console.log(countOfData);
-    res.render('campgrounds/index', { title, camps, countOfData });
+    res.render('campgrounds/index', { title, camps });
 });
 
 
 // #### add new campground
 app.get('/campgrounds/new', (req, res) => {
-    const title = `new Campground`;
+    const title = `Add new Campground`;
     res.render('campgrounds/new', { title });
 });
 

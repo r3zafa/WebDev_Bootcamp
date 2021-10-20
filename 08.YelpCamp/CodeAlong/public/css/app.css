@@ -1,6 +1,5 @@
-.productList:hover{
+.productList:hover {
     background-color: rgb(102, 95, 95);
     transition: .4s ease-in-out;
-
     color: white;
 }

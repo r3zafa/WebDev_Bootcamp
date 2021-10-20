@@ -1,41 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
+<% layout('layouts/boilerplate') %>
 
-<%- include('../partials/head') %>
+    <div class="col-12">
+        <a href="/campgrounds" class="btn btn-sm btn-dark rounded-pill text-white py-1 px-3">
+            <b class="p-0 my-1">
+            Back to Overview
+        </b>
+        </a>
+        <a href="/campgrounds/<%= camp.id %>/edit " class="btn btn-sm btn-warning rounded-pill text-white float-right">
+            <b>
+            EDIT
+        </b>
+        </a>
+    </div>
 
-    <body>
-        <div class="container my-5">
-            <a href="/campgrounds" class="btn btn-sm btn-dark rounded-pill text-white py-1 px-3">
-                <b class="p-0 my-1">
-                    Back to Overview
-                </b>
-            </a>
-            <a href="/campgrounds/<%= camp.id %>/edit " class="btn btn-sm btn-warning rounded-pill text-white">
-                <b>
-                    EDIT
-                </b>
-            </a>
+    <div class="col-12 vh-100 py-3">
+        <small>
+           location: <%= camp.location %>
+        </small>
+        <p class="my-3">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus quam recusandae repellendus ex vero. Delectus quisquam corporis voluptates necessitatibus nisi incidunt. Eos voluptate mollitia dolor voluptatem fugit voluptates cupiditate ad. Sapiente,
+            id. Quos quia laborum nemo distinctio aliquam iste possimus quaerat ducimus repellat veritatis. Neque possimus vero enim, nemo magni, commodi eum deserunt ipsam dolores atque placeat ut cumque dignissimos! Maiores optio assumenda alias at
+            modi nisi ipsum enim laborum unde omnis tempora amet ea inventore ipsam provident, dolore quae, laboriosam distinctio quo. Excepturi voluptatibus sapiente velit asperiores, quia laudantium? Doloremque, ipsam consequuntur provident recusandae
+            veniam amet eius ex, omnis iusto voluptates ratione possimus, esse a iste in error porro autem. Consectetur animi reprehenderit ex quae officia qui non debitis!
+        </p>
+    </div>
 
-            <form class="d-inline float-right" action="/campgrounds/<%= camp.id %>?_method=DELETE" method="post">
-                <button class="btn btn-sm btn-danger rounded-pill text-white">
-                    <b>
-                        DELETE POST
-                    </b>
-                </button>
-            </form>
-
-
-
-            <h1 class="my-3">
-                <%= title %>
-            </h1>
-
-            <h2>
-                <%= camp.location %>
-            </h2>
-
-
-        </div>
-    </body>
-
-</html>
+    <div class="col-12 my-4">
+        <form class="d-inline float-right" action="/campgrounds/<%= camp.id %>?_method=DELETE" method="post">
+            <button class="btn btn-sm btn-danger rounded-pill text-white">
+             <b>
+                DELETE POST
+             </b>
+        </button>
+        </form>
+    </div>

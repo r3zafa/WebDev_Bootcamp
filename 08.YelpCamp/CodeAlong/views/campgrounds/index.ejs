@@ -8,22 +8,35 @@
         </p>
     </div>
     <div class="col-12">
-        <ul class="list-group mt-2 mb-5">
+        <div class="row">
+
             <% for( let camp of camps ) { %>
-                <a href="/campgrounds/<%= camp.id %>" class="text-decoration-none">
-                    <li class="list-group-item list-group-item-action">
-                        <h5>
-                            <b>
-                                                Name:
-                                            </b>
-                            <%= camp.title %>
-                                <b>
-                                                - Location:
-                                            </b>
-                                <%= camp.location %>
-                        </h5>
-                    </li>
+                <a href="/campgrounds/<%= camp.id %>" class="text-decoration-none text-black mx-1 my-md-3 rounded-lg border-0">
+
+                    <div class="card bg-light border-0 shadow">
+                        <div class="row m-0 p-0">
+                            <div class="col-md-4 m-0 p-0 rounded-left">
+                                <img class="img-fluid rounded-left p-0 m-0" src="<%= camp.image %> " alt="">
+                            </div>
+                            <div class="col-md-8 p-3 m-0 rounded-right border border-dark border-left-0">
+                                <h3 class="card-title">
+                                    <%= camp.title %>
+                                </h3>
+                                <small class="text-muted">
+                                   Location: <%= camp.location %>  -  Price:<%= camp.price %>€/night
+                               </small>
+                                <p class="card-text">
+                                    <%= camp.description %>
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+
                 </a>
+
                 <% } %>
-        </ul>
+
+
+        </div>
     </div>

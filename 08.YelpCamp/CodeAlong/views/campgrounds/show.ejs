@@ -6,31 +6,45 @@
             Back to Overview
         </b>
         </a>
-        <a href="/campgrounds/<%= camp.id %>/edit " class="btn btn-sm btn-warning rounded-pill text-white float-right">
-            <b>
-            EDIT
-        </b>
-        </a>
+
+        <div class="row my-5">
+            <div class="col-6 offset-3">
+                <div class="card bg-light shadow">
+                    <img class="card-img-top" src="<%= camp.image %>" alt="<%= camp.title %> image ">
+
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= camp.title %>
+                        </h5>
+                        <p class="card-text">
+                            <%= camp.description %>
+                        </p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-muted"> location:
+                            <%= camp.location %>
+                        </li>
+                        <li class="list-group-item"> Price:
+                            <%= camp.price %>€/night
+                        </li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="/campgrounds/<%= camp.id %>/edit " class="btn btn-sm btn-info text-white rounded-pill">
+                            Edit Post
+                        </a>
+                        <form class="d-inline float-right" action="/campgrounds/<%= camp.id %>?_method=DELETE" method="post">
+                            <button class="btn btn-sm btn-danger rounded-pill text-white text-right">
+                                Delete Post
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="col-12 vh-100 py-3">
-        <small>
-           location: <%= camp.location %>
-        </small>
-        <p class="my-3">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus quam recusandae repellendus ex vero. Delectus quisquam corporis voluptates necessitatibus nisi incidunt. Eos voluptate mollitia dolor voluptatem fugit voluptates cupiditate ad. Sapiente,
-            id. Quos quia laborum nemo distinctio aliquam iste possimus quaerat ducimus repellat veritatis. Neque possimus vero enim, nemo magni, commodi eum deserunt ipsam dolores atque placeat ut cumque dignissimos! Maiores optio assumenda alias at
-            modi nisi ipsum enim laborum unde omnis tempora amet ea inventore ipsam provident, dolore quae, laboriosam distinctio quo. Excepturi voluptatibus sapiente velit asperiores, quia laudantium? Doloremque, ipsam consequuntur provident recusandae
-            veniam amet eius ex, omnis iusto voluptates ratione possimus, esse a iste in error porro autem. Consectetur animi reprehenderit ex quae officia qui non debitis!
-        </p>
-    </div>
+
 
     <div class="col-12 my-4">
-        <form class="d-inline float-right" action="/campgrounds/<%= camp.id %>?_method=DELETE" method="post">
-            <button class="btn btn-sm btn-danger rounded-pill text-white">
-             <b>
-                DELETE POST
-             </b>
-        </button>
-        </form>
+
     </div>

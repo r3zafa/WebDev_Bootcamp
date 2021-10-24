@@ -5,6 +5,11 @@ const methodOverride = require('method-override');
 const morgan = require('morgan'); //morgan log's http requests
 const fs = require('fs'); //to build log file
 const ejsMate = require('ejs-mate');
+// ####################################################################
+const AppError = require('./AppError');
+const warpAsync = require('./warpAsync');
+
+
 // Start App ##########################################################
 const app = express();
 app.use(methodOverride('_method')); //patch,delete,...
@@ -66,21 +71,22 @@ app.use(morgan('tiny', { stream: eventLoggerFile }));
 
 // rooting ############################################################
 
-app.get('/', async(req, res) => {
-    const dataCount = await Campground.countDocuments({});
-    const title = 'home';
-    res.render('index', { title, dataCount });
-});
+app.get('/', warpAsync(
+    async(req, res, next) => {
+        const dataCount = await Campground.countDocuments({});
+        const title = 'home';
+        res.render('index', { title, dataCount });
+    }
+));
 
 // #### campgrounds main page
-app.get('/campgrounds', async(req, res) => {
-    const title = 'Campgrounds';
-    const camps = await Campground.find({});
-    // const countOfData = await Campground.countDocuments({});
-    // res.send(camps); // just for test
-    // console.log(countOfData);
-    res.render('campgrounds/index', { title, camps });
-});
+app.get('/campgrounds', warpAsync(
+    async(req, res, next) => {
+        const title = 'Campgrounds';
+        const camps = await Campground.find({});
+        res.render('campgrounds/index', { title, camps });
+    }
+));
 
 
 // #### add new campground
@@ -89,59 +95,92 @@ app.get('/campgrounds/new', (req, res) => {
     res.render('campgrounds/new', { title });
 });
 
-app.post('/campgrounds', async(req, res) => {
-    const { campground } = req.body; // name of inputs was like campground[title] and campground[location]
-    const newCamp = new Campground(campground);
-    await newCamp.save();
-    res.redirect(`/campgrounds/${newCamp.id}`);
-})
-
+app.post('/campgrounds', warpAsync(
+    async(req, res, next) => {
+        const { campground } = req.body; // name of inputs was like campground[title] and campground[location]
+        const newCamp = new Campground(campground);
+        await newCamp.save();
+        res.redirect(`/campgrounds/${newCamp.id}`);
+    }
+));
 
 // #### campgrounds details page
-app.get('/campgrounds/:id', async(req, res) => {
-    const { id } = req.params;
-    const camp = await Campground.findById(id);
-    const title = `${camp.title}`;
-    res.render('campgrounds/show', { title, camp });
-});
-
-
-
-
+app.get('/campgrounds/:id', warpAsync(
+    async(req, res, next) => {
+        const { id } = req.params;
+        const camp = await Campground.findById(id);
+        if (!camp) { throw new AppError('camp not found', 404); }
+        const title = `${camp.title}`;
+        res.render('campgrounds/show', { title, camp });
+    }
+));
 
 // #### edit/update a campgrounds
-app.get('/campgrounds/:id/edit', async(req, res) => {
-    const { id } = req.params;
-    const camp = await Campground.findById(id);
-    const title = `Edit - ${camp.title}`;
-    res.render('campgrounds/edit', { title, camp });
-});
+app.get('/campgrounds/:id/edit', warpAsync(
+    async(req, res, next) => {
+        const { id } = req.params;
+        const camp = await Campground.findById(id);
+        if (!camp) { throw new AppError('camp not Found', 404); }
+        const title = `Edit - ${camp.title}`;
+        res.render('campgrounds/edit', { title, camp });
+    }
+));
 
-
-app.put('/campgrounds/:id', async(req, res) => {
-    // res.send('updated'); // test
-    const { id } = req.params;
-    const campground = req.body.campground;
-    const camp = await Campground.findByIdAndUpdate(id, {...campground });
-    res.redirect(`/campgrounds/${camp.id}`);
-});
-
+app.put('/campgrounds/:id', warpAsync(
+    async(req, res, next) => {
+        const { id } = req.params;
+        const campground = req.body.campground;
+        const camp = await Campground.findByIdAndUpdate(id, {...campground }, { runValidators: true });
+        res.redirect(`/campgrounds/${camp.id}`);
+    }
+));
 
 // #### delete campgrounds
+app.delete('/campgrounds/:id', warpAsync(
+    async(req, res, next) => {
+        const { id } = req.params;
+        await Campground.findByIdAndDelete(id);
+        res.redirect('/campgrounds');
+    }
+));
 
-app.delete('/campgrounds/:id', async(req, res) => {
-    const { id } = req.params;
-    await Campground.findByIdAndDelete(id);
-    res.redirect('/campgrounds');
-});
+// app.get('/error', (req, res) => {
+//     chicken.fly()
+//     throw new AppError('not found', 401);
+// });
 
+// app.get('/admin', (req, res) => {
+//     throw new AppError('You are not an admin', 403);
+// });
 
 
 // not found 404 using app.use
 app.use((req, res) => {
     res.status(404).send('404 not found')
-})
+});
 
+//custom Error Handler - must be defined at end of script after roots
+// app.use((err, req, res, next) => {
+//     console.log('+++++++++++++++ERROR++++++++++++++++')
+//     res.status(500).send('An error ----------------------- is accrued!!!', err)
+//     console.log('++++++++++++++++++++++++++++++++++++')
+//     next(err)
+// });
+
+function handelValidationErr(err) {
+    console.dir(err);
+    return new AppError(`validation Failed... ${err.message}`, 400)
+}
+app.use((err, req, res, next) => {
+    console.log(err.name);
+    if (err.name === 'ValidationError') err = handelValidationErr(err)
+    next(err);
+})
+app.use((err, req, res, next) => {
+    const { status = 500, message = 'something went wrong' } = err;
+    res.status(status).send(message);
+    // next(err);
+});
 
 
 app.listen(3000, () => {

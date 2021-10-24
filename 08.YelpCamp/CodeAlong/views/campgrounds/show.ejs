@@ -1,0 +1,50 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="col-12">
+        <a href="/campgrounds" class="btn btn-sm btn-dark rounded-pill text-white py-1 px-3">
+            <b class="p-0 my-1">
+            Back to Overview
+        </b>
+        </a>
+
+        <div class="row my-5">
+            <div class="col-6 offset-3">
+                <div class="card bg-light shadow">
+                    <img class="card-img-top" src="<%= camp.image %>" alt="<%= camp.title %> image ">
+
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= camp.title %>
+                        </h5>
+                        <p class="card-text">
+                            <%= camp.description %>
+                        </p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-muted"> location:
+                            <%= camp.location %>
+                        </li>
+                        <li class="list-group-item"> Price:
+                            <%= camp.price %>€/night
+                        </li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="/campgrounds/<%= camp.id %>/edit " class="btn btn-sm btn-info text-white rounded-pill">
+                            Edit Post
+                        </a>
+                        <form class="d-inline float-right" action="/campgrounds/<%= camp.id %>?_method=DELETE" method="post">
+                            <button class="btn btn-sm btn-danger rounded-pill text-white text-right">
+                                Delete Post
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-12 my-4">
+
+    </div>

@@ -6,9 +6,9 @@ const morgan = require('morgan'); //morgan log's http requests
 const fs = require('fs'); //to build log file
 const ejsMate = require('ejs-mate');
 // ####################################################################
-const AppError = require('./AppError');
-const warpAsync = require('./warpAsync');
-
+const ExpressError = require('./utils/ExpressError');
+const catchAsync = require('./utils/catchAsync');
+const { campgroundSchema } = require('./schemas')
 
 // Start App ##########################################################
 const app = express();
@@ -26,6 +26,7 @@ app.set('views', path.join(__dirname, 'views')); // template directory
 const dbName = 'yelpCamp';
 const Campground = require('./models/campground');
 const { application } = require('express');
+const Joi = require('joi');
 
 mongoose.connect(`mongodb://localhost:27017/${dbName}`)
     .then(() => {
@@ -42,36 +43,23 @@ const eventLoggerFile = fs.createWriteStream(path.join(__dirname, 'access.log'),
 app.use(morgan('tiny', { stream: eventLoggerFile }));
 
 // defining middleware's ##############################################
-//if we dont use next we can nut go to next middleware // next(); 
-// app.use((req, res, next) => {
-//     console.log("hi from first middleware - if you return next() instead of just calling next(). the code after returning do not get executed after other middleware.");
-//     return next();
-//     console.log('hi from first middleware - after next()');
-// });
-// app.use((req, res, next) => {
-//     console.log('hi from second middleware');
-//     return next(); // next must included always. if not we dont going to get any response from express 
-// });
+// see v0.1 and v0.2 branch for code ##################################
 
-
-// add request time to req. it make request time in every root handler available
-// its important to manage the priority. if root handler was defined before this middleware. we couldn't access request time
-
-// app.use((req, res, next) => {
-//     console.log(req.method, req.path);
-//     req.requestTime = Date.now();
-//     return next();
-// });
-
-// app.use('/campgrounds', (req, res, next) => {
-//     console.log('you are still in /campground/...  path o(*￣︶￣*)o')
-//     return next();
-// });
-
+const validateCampground = (req, res, next) => {
+    // using joi - defining an joi schema
+    const { error } = campgroundSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400)
+    } else {
+        next();
+    }
+};
+// defining middleware's ##############################################
 
 // rooting ############################################################
 
-app.get('/', warpAsync(
+app.get('/', catchAsync(
     async(req, res, next) => {
         const dataCount = await Campground.countDocuments({});
         const title = 'home';
@@ -80,7 +68,7 @@ app.get('/', warpAsync(
 ));
 
 // #### campgrounds main page
-app.get('/campgrounds', warpAsync(
+app.get('/campgrounds', catchAsync(
     async(req, res, next) => {
         const title = 'Campgrounds';
         const camps = await Campground.find({});
@@ -95,8 +83,10 @@ app.get('/campgrounds/new', (req, res) => {
     res.render('campgrounds/new', { title });
 });
 
-app.post('/campgrounds', warpAsync(
+app.post('/campgrounds', validateCampground, catchAsync(
     async(req, res, next) => {
+        // if (!req.body.Campground) throw new ExpressError('Invalid Campground Data', 400);
+        // console.log(result)
         const { campground } = req.body; // name of inputs was like campground[title] and campground[location]
         const newCamp = new Campground(campground);
         await newCamp.save();
@@ -105,28 +95,28 @@ app.post('/campgrounds', warpAsync(
 ));
 
 // #### campgrounds details page
-app.get('/campgrounds/:id', warpAsync(
+app.get('/campgrounds/:id', catchAsync(
     async(req, res, next) => {
         const { id } = req.params;
         const camp = await Campground.findById(id);
-        if (!camp) { throw new AppError('camp not found', 404); }
+        if (!camp) { throw new ExpressError('camp not found', 404); }
         const title = `${camp.title}`;
         res.render('campgrounds/show', { title, camp });
     }
 ));
 
 // #### edit/update a campgrounds
-app.get('/campgrounds/:id/edit', warpAsync(
+app.get('/campgrounds/:id/edit', catchAsync(
     async(req, res, next) => {
         const { id } = req.params;
         const camp = await Campground.findById(id);
-        if (!camp) { throw new AppError('camp not Found', 404); }
+        if (!camp) { throw new ExpressError('camp not Found', 404); }
         const title = `Edit - ${camp.title}`;
         res.render('campgrounds/edit', { title, camp });
     }
 ));
 
-app.put('/campgrounds/:id', warpAsync(
+app.put('/campgrounds/:id', validateCampground, catchAsync(
     async(req, res, next) => {
         const { id } = req.params;
         const campground = req.body.campground;
@@ -136,7 +126,7 @@ app.put('/campgrounds/:id', warpAsync(
 ));
 
 // #### delete campgrounds
-app.delete('/campgrounds/:id', warpAsync(
+app.delete('/campgrounds/:id', catchAsync(
     async(req, res, next) => {
         const { id } = req.params;
         await Campground.findByIdAndDelete(id);
@@ -144,42 +134,17 @@ app.delete('/campgrounds/:id', warpAsync(
     }
 ));
 
-// app.get('/error', (req, res) => {
-//     chicken.fly()
-//     throw new AppError('not found', 401);
-// });
 
-// app.get('/admin', (req, res) => {
-//     throw new AppError('You are not an admin', 403);
-// });
-
-
-// not found 404 using app.use
-app.use((req, res) => {
-    res.status(404).send('404 not found')
-});
-
-//custom Error Handler - must be defined at end of script after roots
-// app.use((err, req, res, next) => {
-//     console.log('+++++++++++++++ERROR++++++++++++++++')
-//     res.status(500).send('An error ----------------------- is accrued!!!', err)
-//     console.log('++++++++++++++++++++++++++++++++++++')
-//     next(err)
-// });
-
-function handelValidationErr(err) {
-    console.dir(err);
-    return new AppError(`validation Failed... ${err.message}`, 400)
-}
-app.use((err, req, res, next) => {
-    console.log(err.name);
-    if (err.name === 'ValidationError') err = handelValidationErr(err)
-    next(err);
+//new 404 code:
+app.all('*', (req, res, next) => {
+    next(new ExpressError('404 - Page not found', 404));
 })
+
 app.use((err, req, res, next) => {
-    const { status = 500, message = 'something went wrong' } = err;
-    res.status(status).send(message);
-    // next(err);
+    const { status = 500 } = err;
+    if (!err.message) err.message = 'Oh no, Something went wrong!'
+    const title = `Error ${status}`;
+    res.status(status).render('error', { title, err })
 });
 
 

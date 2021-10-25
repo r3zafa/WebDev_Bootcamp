@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate') %>
 
     <div class="col-12 py-2">
-        <form action="/campgrounds/<%= camp._id %>?_method=PUT" method="POST">
+        <form action="/campgrounds/<%= camp._id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
 
             <label for="title">Title</label>
             <div class="input-group mb-3">
@@ -13,7 +13,10 @@
                                   </svg>
                                 </span>
                 </div>
-                <input value="<%= camp.title %>" type="text" class="form-control" id="title" aria-describedby="title" name="campground[title]">
+                <input value="<%= camp.title %>" type="text" class="form-control" id="title" aria-describedby="title" name="campground[title]" required>
+                <div class="invalid-tooltip">
+                    Please choose a valid Title
+                </div>
             </div>
 
             <label for="location">Location</label>
@@ -25,7 +28,10 @@
                                       </svg>
                                 </span>
                 </div>
-                <input value="<%= camp.location %>" type="text" class="form-control" id="location" aria-describedby="location" name="campground[location]">
+                <input value="<%= camp.location %>" type="text" class="form-control" id="location" aria-describedby="location" name="campground[location]" required>
+                <div class="invalid-tooltip">
+                    Please input a valid location.
+                </div>
             </div>
 
 
@@ -34,7 +40,10 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="priceSpan"> € </span>
                 </div>
-                <input type="text" value="<%= camp.price %>" class="form-control" id="price" aria-describedby="location" name="campground[price]">
+                <input type="text" value="<%= camp.price %>" class="form-control" id="price" aria-describedby="location" name="campground[price]" required>
+                <div class="invalid-tooltip">
+                    Price can't be zero or less than zero
+                </div>
             </div>
 
             <label for="image">Image</label>
@@ -47,14 +56,19 @@
                           </svg>
                         </span>
                 </div>
-                <input type="text" value="<%= camp.image %>" class="form-control" id="image" aria-describedby="image" name="campground[image]">
+                <input type="text" value="<%= camp.image %>" class="form-control" id="image" aria-describedby="image" name="campground[image]" required>
+                <div class="invalid-tooltip">
+                    Please add an image.
+                </div>
             </div>
 
             <div class="form-group mb-3">
                 <label for="Description">Description</label>
-                <textarea class="form-control" id="Description" rows="3" name="campground[description]"><%= camp.description %></textarea>
+                <textarea class="form-control" id="Description" rows="3" name="campground[description]" required><%= camp.description %></textarea>
             </div>
-
+            <div class="invalid-tooltip">
+                Please describe the camp.
+            </div>
             <div class="mb-3">
                 <button class="btn btn-dark rounded-pill">Save changes</button>
                 <a href="/campgrounds/<%= camp.id %> " class="btn btn-danger rounded-pill">Cancel</a>

@@ -26,7 +26,7 @@ const seedDB = async() => {
         const camp = new Campground({
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
-            image: "https://source.unsplash.com/collection/483251",
+            image: "https://images.unsplash.com/photo-1456428199391-a3b1cb5e93ab?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1332&q=80",
             description: "error porro autem.Consectetur animi reprehenderit ex quae officia qui non debitis error porro autem.Consectetur animi reprehenderit ex quae officia qui non debitis",
             price
         })

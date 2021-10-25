@@ -9,8 +9,8 @@
 
         <div class="row my-5">
             <div class="col-6 offset-3">
-                <div class="card bg-light shadow">
-                    <img class="card-img-top" src="<%= camp.image %>" alt="<%= camp.title %> image ">
+                <div class="card bg-gray-1 border-0">
+                    <img class="card-img-top img-fit-content" src="<%= camp.image %>" alt="<%= camp.title %> image ">
 
                     <div class="card-body">
                         <h5 class="card-title">
@@ -21,10 +21,10 @@
                         </p>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item text-muted"> location:
+                        <li class="list-group-item text-muted bg-gray-2"> location:
                             <%= camp.location %>
                         </li>
-                        <li class="list-group-item"> Price:
+                        <li class="list-group-item bg-gray-2"> Price:
                             <%= camp.price %>€/night
                         </li>
                     </ul>

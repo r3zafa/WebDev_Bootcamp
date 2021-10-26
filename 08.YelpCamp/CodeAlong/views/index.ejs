@@ -1,11 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
+<% layout('layouts/boilerplate') %>
 
-    <%- include('partials/head') %>
+    <div class="col-12">
 
-<body>
-    <h1>
-        <%= title %> 
-    </h1>
-</body>
-</html>
+        <p class="mt-4 mr-2 mb-2 d-inline">
+            Get Started:
+        </p>
+        <a href="/campgrounds" class='btn btn-sm btn-outline-dark rounded-pill px-3 my-3 '>
+            <b>
+                Campgrounds
+                <span class="badge badge-info badge-pill"><%= dataCount %> </span>
+            </b>
+        </a>
+        <a href="/campgrounds/new" class='btn btn-sm btn-outline-danger rounded-pill px-3 my-3'>
+            <b>
+               Add new campground
+           </b>
+        </a>
+        <div class="col-12">
+            <%- include('./partials/cardsView') %>
+        </div>
+
+    </div>

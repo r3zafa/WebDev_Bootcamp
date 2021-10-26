@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partials/head') %>
+
+    <body class="bg-info d-flex flex-column vh-100">
+        <%- include('../partials/navbar') %>
+
+            <div class="container bg-white">
+                <div class="row mx-3 my-0">
+                    <div class="col-12 mt-5 mb-4">
+                        <h1 class="">
+                            <%= title %>
+                        </h1>
+                    </div>
+
+                    <!-- main content -->
+                    <%- body %>
+
+                </div>
+            </div>
+            <%- include('../partials/footer') %>
+
+    </body>
+
+</html>
+
+<!-- body tags injects our partials in template -->
+<!-- to do that we need to include the following tag in partials: 
+            example: < % layout('/layouts/boilerplate') % >        -->

@@ -2,29 +2,36 @@
 <html lang="en">
 
 <%- include('../partials/head') %>
+    <% var marginAfterFlash = 'mt-1 mb-4' %>
+        <% var marginBeforeFlash = 'mt-5 mb-4' %>
 
-    <body class="bg-info d-flex flex-column vh-100">
-        <%- include('../partials/navbar') %>
+            <body class="bg-info d-flex flex-column vh-100">
 
-            <div class="container bg-white">
-                <div class="row mx-3 my-0">
-                    <div class="col-12 mt-5 mb-4">
-                        <h1 class="">
-                            <%= title %>
-                        </h1>
+                <%- include('../partials/navbar') %>
+
+                    <div class="container bg-white">
+                        <div class="row mx-3 my-0">
+
+                            <div class="col-12 mt-4 mb-1">
+                                <!-- flash messages -->
+                                <%- include('../partials/flash') %>
+                            </div>
+
+
+                            <div class="col-12 <%- success && success.length ? marginAfterFlash  : marginBeforeFlash %> ">
+                                <h1>
+                                    <%= title %>
+                                </h1>
+                            </div>
+
+
+                            <!-- main content -->
+                            <%- body %>
+
+                        </div>
                     </div>
+                    <%- include('../partials/footer') %>
 
-                    <!-- main content -->
-                    <%- body %>
-
-                </div>
-            </div>
-            <%- include('../partials/footer') %>
-
-    </body>
+            </body>
 
 </html>
-
-<!-- body tags injects our partials in template -->
-<!-- to do that we need to include the following tag in partials: 
-            example: < % layout('/layouts/boilerplate') % >        -->

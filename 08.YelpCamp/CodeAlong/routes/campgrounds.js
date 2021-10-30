@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router({ mergeParams: true });
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
+const checkIsLoggedIn = require('../utils/checkIsLoggedIn');
 const Campground = require('../models/campground');
 const { campgroundSchema } = require('../schemas');
 
@@ -17,6 +18,7 @@ const validateCampground = (req, res, next) => {
         next();
     }
 };
+
 // ########################## roots ###################################
 // #### campgrounds main pag
 router.get('/', catchAsync(
@@ -29,12 +31,12 @@ router.get('/', catchAsync(
 
 
 // #### add new campground
-router.get('/new', (req, res) => {
+router.get('/new', checkIsLoggedIn, (req, res) => {
     const title = `Add new Campground`;
     res.render('campgrounds/new', { title });
 });
 
-router.post('/', validateCampground, catchAsync(
+router.post('/', validateCampground, checkIsLoggedIn, catchAsync(
     async(req, res, next) => {
         const { campground } = req.body; // name of inputs was like campground[title] and campground[location]
         const newCamp = new Campground(campground);
@@ -61,7 +63,7 @@ router.get('/:id', catchAsync(
 ));
 
 // #### edit/update a campgrounds
-router.get('/:id/edit', catchAsync(
+router.get('/:id/edit', checkIsLoggedIn, catchAsync(
     async(req, res, next) => {
         const { id } = req.params;
         const camp = await Campground.findById(id);
@@ -75,7 +77,7 @@ router.get('/:id/edit', catchAsync(
     }
 ));
 
-router.put('/:id', validateCampground, catchAsync(
+router.put('/:id', validateCampground, checkIsLoggedIn, catchAsync(
     async(req, res, next) => {
         const { id } = req.params;
         const campground = req.body.campground;
@@ -86,7 +88,7 @@ router.put('/:id', validateCampground, catchAsync(
 ));
 
 // #### delete campgrounds
-router.delete('/:id', catchAsync(
+router.delete('/:id', checkIsLoggedIn, catchAsync(
     async(req, res, next) => {
         const { id } = req.params;
         await Campground.findByIdAndDelete(id);

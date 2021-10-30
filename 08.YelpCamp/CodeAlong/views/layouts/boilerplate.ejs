@@ -18,7 +18,7 @@
                             </div>
 
 
-                            <div class="col-12 <%- success && success.length ? marginAfterFlash  : marginBeforeFlash %> ">
+                            <div class="col-12 <%- success && success.length || error && error.length ? marginAfterFlash  : marginBeforeFlash %> ">
                                 <h1>
                                     <%= title %>
                                 </h1>

@@ -49,9 +49,14 @@ router.get('/:id', catchAsync(
     async(req, res, next) => {
         const { id } = req.params;
         const camp = await Campground.findById(id).populate('reviews');
-        if (!camp) { throw new ExpressError('camp not found', 404); }
+        if (!camp) {
+            req.flash('error', 'Cannot find that campground');
+            // throw new ExpressError('camp not found', 404);
+            return res.redirect('/campgrounds');
+        };
         const title = `${camp.title}`;
         res.render('campgrounds/show', { title, camp });
+
     }
 ));
 
@@ -60,7 +65,11 @@ router.get('/:id/edit', catchAsync(
     async(req, res, next) => {
         const { id } = req.params;
         const camp = await Campground.findById(id);
-        if (!camp) { throw new ExpressError('camp not Found', 404); }
+        if (!camp) {
+            req.flash('error', 'Cannot load the edit page. somethings went wrong!!');
+            // throw new ExpressError('camp not found', 404);
+            return res.redirect(`/campgrounds`);
+        };
         const title = `Edit - ${camp.title}`;
         res.render('campgrounds/edit', { title, camp });
     }

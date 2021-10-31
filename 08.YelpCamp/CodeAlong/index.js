@@ -84,6 +84,7 @@ app.use(morgan('tiny', { stream: eventLoggerFile }));
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
+    res.locals.currentUser = req.user;
     next();
 })
 
@@ -94,9 +95,9 @@ app.use('/campgrounds/:id/reviews', reviewRoutes);
 app.use('/', userRoutes);
 
 app.get('/', catchAsync(
-    async(req, res, next) => {
+    async(req, res) => {
         const dataCount = await Campground.countDocuments({});
-        const title = 'home';
+        const title = '';
         res.render('index', { title, dataCount });
     }
 ));

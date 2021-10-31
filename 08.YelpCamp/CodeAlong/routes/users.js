@@ -16,15 +16,19 @@ router.get('/register', (req, res) => {
 
 
 
-router.post('/register', catchAsync(async(req, res) => {
+router.post('/register', catchAsync(async(req, res, next) => {
     try {
         const { username, email, password } = req.body.register;
         // res.send(register); // for test propose
         const newUser = new User({ email, username });
         const registeredUser = await User.register(newUser, password);
         // console.log(registeredUser); // for test propose
-        req.flash('success', 'your account is created successfully!');
-        res.redirect('/login')
+        req.login(registeredUser, err => {
+            if (err) return next(err);
+            req.flash('success', 'your account is created successfully!');
+            res.redirect('/login');
+        });
+
     } catch (e) {
         req.flash('error', e.message);
         res.redirect('/register');
@@ -42,7 +46,9 @@ router.post('/login', passport.authenticate('local', { failureFlash: true, failu
     (req, res) => {
         const { username } = req.body;
         req.flash('success', `welcome back ${username}`);
-        res.redirect('/campgrounds');
+        const redirectUrl = req.session.returnTo || '/';
+        delete req.session.returnTo; // to delete return to for next use.
+        res.redirect(redirectUrl);
     }
 )
 

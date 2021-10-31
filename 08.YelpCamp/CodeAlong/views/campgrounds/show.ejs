@@ -24,20 +24,25 @@
                         <li class="list-group-item text-muted bg-gray-2"> location:
                             <%= camp.location %>
                         </li>
+                        <li class="list-group-item bg-gray-2"> submitted by:
+                            <%= camp.author.username %>
+                        </li>
                         <li class="list-group-item bg-gray-2"> Price:
                             <%= camp.price %>€/night
                         </li>
                     </ul>
-                    <div class="card-body">
-                        <a href="/campgrounds/<%= camp.id %>/edit " class="btn btn-sm btn-info text-white rounded-pill">
+                    <% if(currentUser && camp.author._id.equals(currentUser._id)) { %>
+                        <div class="card-body">
+                            <a href="/campgrounds/<%= camp.id %>/edit " class="btn btn-sm btn-info text-white rounded-pill">
                             Edit Post
                         </a>
-                        <form class="d-inline float-right" action="/campgrounds/<%= camp.id %>?_method=DELETE" method="post">
-                            <button class="btn btn-sm btn-danger rounded-pill text-white text-right">
+                            <form class="d-inline float-right" action="/campgrounds/<%= camp.id %>?_method=DELETE" method="post">
+                                <button class="btn btn-sm btn-danger rounded-pill text-white text-right">
                                 Delete Post
                             </button>
-                        </form>
-                    </div>
+                            </form>
+                        </div>
+                        <% } %>
                 </div>
             </div>
 

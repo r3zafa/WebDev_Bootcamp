@@ -1,29 +1,17 @@
 // ########################### require dependencies ##################
-
 const express = require('express');
 const router = express.Router({ mergeParams: true });
-const catchAsync = require('../utils/catchAsync');
-const ExpressError = require('../utils/ExpressError');
-const checkIsLoggedIn = require('../utils/checkIsLoggedIn');
 const Review = require('../models/review');
 const Campground = require('../models/campground');
-const { reviewSchema } = require('../schemas');
 
 // ########################## middleware's ###########################
-
-const validateReview = (req, res, next) => {
-    // using joi - defining an joi schema
-    const { error } = reviewSchema.validate(req.body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400)
-    }
-    return next();
-};
+const validateReview = require('../utils/validateReview');
+const checkIsLoggedIn = require('../utils/checkIsLoggedIn');
+const catchAsync = require('../utils/catchAsync');
 
 // ########################## roots ##################################
 
-router.post('/', validateReview, checkIsLoggedIn, catchAsync(
+router.post('/', checkIsLoggedIn, validateReview, catchAsync(
     async(req, res) => {
         const { id } = req.params;
         const camp = await Campground.findById(id);

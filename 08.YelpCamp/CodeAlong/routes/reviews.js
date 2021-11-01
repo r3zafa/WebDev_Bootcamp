@@ -1,38 +1,21 @@
 // ########################### require dependencies ##################
 const express = require('express');
 const router = express.Router({ mergeParams: true });
-const Review = require('../models/review');
-const Campground = require('../models/campground');
+
+// ########################## controller #############################
+const reviewController = require('../controllers/reviews');
 
 // ########################## middleware's ###########################
 const validateReview = require('../utils/validateReview');
 const checkIsLoggedIn = require('../utils/checkIsLoggedIn');
 const catchAsync = require('../utils/catchAsync');
+const isReviewAuthor = require('../utils/isReviewAuthor');
 
-// ########################## roots ##################################
+// ########################## routes #################################
+// #### send reviews
+router.post('/', checkIsLoggedIn, validateReview, catchAsync(reviewController.createReview));
+// #### remove reviews
+router.delete('/:reviewId', checkIsLoggedIn, isReviewAuthor, catchAsync(reviewController.deleteReview))
 
-router.post('/', checkIsLoggedIn, validateReview, catchAsync(
-    async(req, res) => {
-        const { id } = req.params;
-        const camp = await Campground.findById(id);
-        const newReview = new Review(req.body.review);
-        camp.reviews.push(newReview);
-        await newReview.save();
-        await camp.save();
-        req.flash('success', 'New review was added successfully!');
-        res.redirect(`/campgrounds/${camp.id}`)
-    }
-));
-
-router.delete('/:reviewId', checkIsLoggedIn, catchAsync(
-    async(req, res) => {
-        const { id, reviewId } = req.params;
-        await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } })
-        await Review.findByIdAndDelete(reviewId);
-        req.flash('success', 'Review delete - successful!');
-        res.redirect(`/campgrounds/${id}`);
-    }
-))
-
-
+// #### export router
 module.exports = router;

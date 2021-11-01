@@ -2,7 +2,7 @@
 
     <div class="col-12 py-2">
 
-        <form action="/campgrounds" method="POST" class="needs-validation" novalidate>
+        <form action="/campgrounds" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
 
             <label for="title">Title</label>
             <div class="input-group mb-3">
@@ -55,6 +55,7 @@
                 </div>
             </div>
 
+            <!--
             <label for="image">Image</label>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -70,6 +71,10 @@
                     Please add an image.
                 </div>
             </div>
+
+            -->
+
+            <input type="file" name="image" id="" multiple>
 
             <div class="form-group mb-3">
                 <label for="Description">Description</label>

@@ -1,64 +1,30 @@
-// ######### require dependencies ##################
-
+// ########################### require dependencies ##################
 const express = require('express');
 const router = express.Router();
-const catchAsync = require('../utils/catchAsync');
-const ExpressError = require('../utils/ExpressError');
-const User = require('../models/user');
 const passport = require('passport');
 
+// ########################## controller #############################
+const userController = require('../controllers/users');
 
+// ########################## middleware's ###########################
+const catchAsync = require('../utils/catchAsync');
+const ExpressError = require('../utils/ExpressError');
 
-router.get('/register', (req, res) => {
-    const title = 'Register';
-    res.render('users/register', { title });
-})
+// ########################## routers ################################
 
+router.route('/register')
+    .get(userController.renderRegisterForm) // #### Render register form
+    .post(catchAsync(userController.register)); // #### register new User
 
+router.route('/login')
+    .get(userController.renderLoginForm) // #### render login form
+    .post(passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }),
+        userController.login); // #### login
 
-router.post('/register', catchAsync(async(req, res, next) => {
-    try {
-        const { username, email, password } = req.body.register;
-        // res.send(register); // for test propose
-        const newUser = new User({ email, username });
-        const registeredUser = await User.register(newUser, password);
-        // console.log(registeredUser); // for test propose
-        req.login(registeredUser, err => {
-            if (err) return next(err);
-            req.flash('success', 'your account is created successfully!');
-            res.redirect('/login');
-        });
-
-    } catch (e) {
-        req.flash('error', e.message);
-        res.redirect('/register');
-    }
-
-}));
-
-
-router.get('/login', (req, res) => {
-    const title = 'Login';
-    res.render('users/login', { title });
-});
-
-router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }),
-    (req, res) => {
-        const { username } = req.body;
-        req.flash('success', `welcome back ${username}`);
-        const redirectUrl = req.session.returnTo || '/';
-        delete req.session.returnTo; // to delete return to for next use.
-        res.redirect(redirectUrl);
-    }
-)
-
-router.get('/logout', (req, res) => {
-    req.logOut();
-    req.flash('success', 'successfully logged out!, see you later ...');
-    res.redirect('/');
-})
+// #### logout
+router.get('/logout', userController.logout);
 
 
 
-
+// #### export router
 module.exports = router;

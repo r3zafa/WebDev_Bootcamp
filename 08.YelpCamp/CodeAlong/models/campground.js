@@ -1,8 +1,12 @@
+// ########################### defining User Schema ####################
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Review = require('./review');
-const User = require('./user');
 
+// ########################### requiring Schema's ######################
+const Review = require('./review');
+// const User = require('./user');
+
+// ########################### defining campground Schema ##############
 const CampgroundSchema = new Schema({
     title: { type: String, required: [true, 'name cannot be blank'] },
     price: Number,
@@ -20,8 +24,10 @@ const CampgroundSchema = new Schema({
 });
 
 
+// ########################### defining middleware's for Schema ##########
+// .post or .pre for example
 CampgroundSchema.post('findOneAndDelete', async function(doc) {
-    console.log(doc)
+    // console.log(doc)
     await Review.deleteMany({
         _id: { $in: doc.reviews }
     })

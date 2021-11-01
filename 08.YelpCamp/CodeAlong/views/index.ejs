@@ -2,7 +2,7 @@
 
     <div class="col-12 mb-5 mt-3 bg-white <%- !currentUser ? 'vh-100':''  %>">
 
-        <% if (!currentUser) { %>
+        <!-- <% if (!currentUser) { %>
             <div class="col-lg-6 offset-lg-3 bg-danger rounded-lg p-5 mt-5 shadow">
                 <p class="text-center">
                     <svg width="45%" height="45%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 503.894 503.894">
@@ -56,9 +56,18 @@
                         </div>
                     </div>
                 </div>
-                <% } %>
+                <% } %> -->
 
-
+        <div class="col-lg-6 offset-lg-3 rounded-lg">
+            <div class="card bg-gray-1 shadow mt-4 mb-5">
+                <img src="https://images.unsplash.com/photo-1487730116645-74489c95b41b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Campgrounds</h5>
+                    <p class="card-text">Find camping spots around the world!</p>
+                    <a href="/campgrounds" class="btn btn-primary">See all <span class="badge badge-light"><%= dataCount %> </span></a>
+                </div>
+            </div>
+        </div>
 
 
     </div>

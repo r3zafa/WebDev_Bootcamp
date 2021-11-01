@@ -9,7 +9,7 @@
 
         <div class="row my-5">
             <div class="col-md-8 col-lg-6">
-                <div class="card bg-gray-1 border-0">
+                <div class="card bg-gray-2 border-0">
                     <img class="card-img-top img-fit-content" src="<%= camp.image %>" alt="<%= camp.title %> image ">
 
                     <div class="card-body">
@@ -21,13 +21,13 @@
                         </p>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item text-muted bg-gray-2"> location:
+                        <li class="list-group-item text-muted bg-gray-1"> location:
                             <%= camp.location %>
                         </li>
-                        <li class="list-group-item bg-gray-2"> submitted by:
+                        <li class="list-group-item bg-gray-1"> submitted by:
                             <%= camp.author.username %>
                         </li>
-                        <li class="list-group-item bg-gray-2"> Price:
+                        <li class="list-group-item bg-gray-1"> Price:
                             <%= camp.price %>€/night
                         </li>
                     </ul>
@@ -47,58 +47,99 @@
             </div>
 
             <div class="col-md-8 col-lg-6">
-                <form action="/campgrounds/<%= camp.id %>/reviews " method="post" novalidate class="needs-validation bg-gray-1 p-3 rounded">
 
-                    <h2 class="form-text">Leave a review</h2>
-                    <div class="form-group">
-                        <label for="rating">Rating:</label>
-                        <input type="range" value="0" name="review[rating]" class="form-control-range" id="rating" min="1" max="5">
-                    </div>
-                    <div class="mb-3">
-                        <label for="review">Review</label>
-                        <textarea class="form-control" cols="30" rows="3" name="review[body]" id="review" placeholder="add your review" required></textarea>
-                        <div class="valid-feedback">
-                            Looks good!
+                <% if(currentUser) { %>
+                    <form action="/campgrounds/<%= camp.id %>/reviews " method="post" novalidate class="needs-validation bg-gray-2 border p-3 rounded">
+
+                        <h2 class="form-text">Leave a review</h2>
+                        <div class="form-group">
+                            <fieldset class="starability-basic">
+                                <!-- <legend>Rating:</legend> -->
+                                <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                                <label for="first-rate1" title="Terrible">1 star</label>
+                                <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                                <label for="first-rate2" title="Not good">2 stars</label>
+                                <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                                <label for="first-rate3" title="Average">3 stars</label>
+                                <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                                <label for="first-rate4" title="Very good">4 stars</label>
+                                <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                                <label for="first-rate5" title="Amazing">5 stars</label>
+                            </fieldset>
+
                         </div>
-                        <div class="invalid-feedback">
-                            Please fill this section with some text
+                        <div class="mb-3">
+                            <label for="review">Review</label>
+                            <textarea class="form-control" cols="30" rows="3" name="review[body]" id="review" placeholder="add your review" required></textarea>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please fill this section with some text
+                            </div>
+
                         </div>
 
-                    </div>
 
-
-                    <div class="form-group">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                            <label class="form-check-label" for="invalidCheck">
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                <label class="form-check-label" for="invalidCheck">
                             Agree to terms and conditions
                           </label>
-                            <div class="invalid-feedback">
-                                You must agree before submitting.
+                                <div class="invalid-feedback">
+                                    You must agree before submitting.
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="mb-1">
-                        <button class="btn btn-success rounded-pill">send</button>
-                    </div>
-                </form>
-                <h3 class="my-3">Other reviews</h3>
-                <% for( let review of camp.reviews ) { %>
-                    <div class="card mt-3">
-                        <div class="card-body">
-                            <h5 class="card-title"> Rating:
-                                <%= review.rating %>
-                            </h5>
-                            <p class="card-text">
-                                <%= review.body %>
-                            </p>
-                            <form action="/campgrounds/<%= camp.id %>/reviews/<%= review.id %>?_method=DELETE" method="post">
-                                <button class="btn btn-sm btn-danger rounded-pill">Delete review</button>
-                            </form>
+                        <div class="mb-1">
+                            <button class="btn btn-success rounded-pill">send</button>
                         </div>
-                    </div>
-                    <% } %>
+                    </form>
+
+                    <% } else { %>
+                        <div class="card bg-gray-1 p-4 border-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10rem" height="10rem" fill="currentColor" class="bi bi-lock-fill card-img-top text-secondary" viewBox="0 0 16 16">
+                                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                              </svg>
+                            <div class="card-body">
+                                <h3 class="card-text text-center text-secondary">
+                                    Sign in to send a review.
+                                </h3>
+                            </div>
+                        </div>
+
+                        <% } %>
+
+                            <h3 class="my-3">reviews</h3>
+                            <% for( let review of camp.reviews ) { %>
+                                <div class="card mt-3">
+                                    <div class="card-body">
+                                        <h3 class="card-title">
+                                            <%= review.author.username %>
+                                        </h3>
+                                        <p class="starability-result" data-rating="<%= review.rating %>">
+                                            Rated:
+                                            <%= review.rating %> stars
+                                        </p>
+
+                                        <p class="card-text">
+                                            <%= review.body %>
+                                        </p>
+                                        <% if(currentUser && review.author._id.equals(currentUser._id)) { %>
+                                            <form action="/campgrounds/<%= camp.id %>/reviews/<%= review.id %>?_method=DELETE" method="post">
+                                                <button class="close">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="text-danger-1 bi bi-trash-fill" viewBox="0 0 16 16">
+                                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                                          </svg>
+                                                    </button>
+                                            </form>
+                                            <% } %>
+                                    </div>
+                                </div>
+                                <% } %>
             </div>
 
         </div>

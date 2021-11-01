@@ -1,3 +1,10 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+};
+
+// console.log(process.env.secret);
+
+
 const express = require('express');
 const path = require('path'); // including path
 const mongoose = require('mongoose'); // db middleware
@@ -76,19 +83,17 @@ const eventLoggerFile = fs.createWriteStream(path.join(__dirname, 'access.log'),
 app.use(morgan('tiny', { stream: eventLoggerFile }));
 
 // defining middleware's ##############################################
-
 // --------------------- put somethings here! -------------------------
-
-// ############# flash massage middleware #############################
+// ############# flash massage middleware
 
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
-    res.locals.currentUser = req.user;
+    res.locals.currentUser = req.user; // set a current user in session
     next();
 })
 
-// rooting ############################################################
+// routes ############################################################
 
 app.use('/campgrounds', campgroundRoutes);
 app.use('/campgrounds/:id/reviews', reviewRoutes);

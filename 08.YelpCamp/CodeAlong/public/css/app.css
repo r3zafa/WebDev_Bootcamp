@@ -1,9 +1,17 @@
 .bg-gray-1 {
-    background-color: rgb(216, 213, 213);
+    background-color: rgb(238, 235, 235);
 }
 
 .bg-gray-2 {
-    background-color: rgb(204, 201, 201);
+    background-color: rgba(216, 213, 213, 0.6);
+}
+
+.text-danger-1 {
+    color: rgb(255, 0, 0);
+}
+
+.bg-danger-1 {
+    background-color: rgb(255, 0, 0);
 }
 
 .img-fit-content {

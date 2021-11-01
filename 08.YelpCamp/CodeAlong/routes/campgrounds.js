@@ -2,7 +2,8 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 const multer = require('multer'); // middleware for handling multipart/form-data
-const upload = multer({ dest: 'uploads/' });
+const { storage } = require('../cloudinary');
+const upload = multer({ storage });
 
 // ########################## middleware's #############################
 const catchAsync = require('../utils/catchAsync');
@@ -17,11 +18,8 @@ const campgroundsController = require('../controllers/campgrounds');
 
 router.route('/')
     .get(catchAsync(campgroundsController.index)) // #### campgrounds index
-    // .post(checkIsLoggedIn, validateCampground, upload.array('image'), catchAsync(campgroundsController.createCampground)); // #### Create new Campground
-    .post(upload.array('image'), (req, res) => {
-        console.log(req.body, req.files);
-        res.send('worked!');
-    }); // #### Create new Campground
+    .post(checkIsLoggedIn, upload.array('image'), validateCampground, catchAsync(campgroundsController.createCampground)); // #### Create new Campground
+
 
 // #### Render form for add new campground
 router.get('/new', checkIsLoggedIn, campgroundsController.renderNewForm);

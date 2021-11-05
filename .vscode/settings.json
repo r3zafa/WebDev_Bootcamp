@@ -23,7 +23,11 @@
     },
     "peacock.color": "#ff3d00",
     "cSpell.words": [
+        "bpgk",
         "cloudinary",
+        "MAPBOX",
+        "opkxmh",
         "resave"
-    ]
+    ],
+    "livePreview.defaultPreviewPath": "/08.YelpCamp/CodeAlong/views/campgrounds/index.ejs"
 }

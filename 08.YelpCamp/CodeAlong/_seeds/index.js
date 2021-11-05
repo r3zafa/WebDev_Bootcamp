@@ -20,16 +20,31 @@ const sample = array => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async() => {
     await Campground.deleteMany({}); // First delete everything
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 400; i++) {
         const price = Math.floor(Math.random() * 20 + 10);
         const random1000 = Math.floor(Math.random() * 1000);
         const camp = new Campground({
             author: "617ef4c575f279407ff6ddcf",
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
-            image: "https://images.unsplash.com/photo-1456428199391-a3b1cb5e93ab?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1332&q=80",
             description: "error porro autem.Consectetur animi reprehenderit ex quae officia qui non debitis error porro autem.Consectetur animi reprehenderit ex quae officia qui non debitis",
-            price
+            price,
+            geometry: {
+                type: 'Point',
+                coordinates: [
+                    cities[random1000].longitude,
+                    cities[random1000].latitude
+                ]
+            },
+            images: [{
+                    "url": "https://res.cloudinary.com/dqzdywts9/image/upload/v1635802184/yelpCamp/tf3mvl2ayanr5bpgk6fj.jpg",
+                    "filename": "yelpCamp/tf3mvl2ayanr5bpgk6fj"
+                },
+                {
+                    "url": "https://res.cloudinary.com/dqzdywts9/image/upload/v1635802184/yelpCamp/zf1l6we3jw6wg9opkxmh.jpg",
+                    "filename": "yelpCamp/zf1l6we3jw6wg9opkxmh"
+                }
+            ]
         })
         await camp.save();
     }

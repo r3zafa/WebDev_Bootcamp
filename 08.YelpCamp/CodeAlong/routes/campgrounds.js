@@ -26,7 +26,7 @@ router.get('/new', checkIsLoggedIn, campgroundsController.renderNewForm);
 
 router.route('/:id')
     .get(catchAsync(campgroundsController.renderCampgroundsDetailPage)) // #### campgrounds details page
-    .put(checkIsLoggedIn, validateCampground, isAuthor, catchAsync(campgroundsController.updateCampground)) // #### Update Campground's
+    .put(checkIsLoggedIn, isAuthor, upload.array('image'), validateCampground, catchAsync(campgroundsController.updateCampground)) // #### Update Campground's
     .delete(checkIsLoggedIn, isAuthor, catchAsync(campgroundsController.deleteCampground)); // #### delete campgrounds
 
 // #### Render edit/update form for Campground

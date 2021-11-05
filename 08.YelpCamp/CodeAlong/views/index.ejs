@@ -1,73 +1,48 @@
-<% layout('layouts/boilerplate') %>
+<!DOCTYPE html>
+<html lang="en">
 
-    <div class="col-12 mb-5 mt-3 bg-white <%- !currentUser ? 'vh-100':''  %>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YelpCamp</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/home.css">
+</head>
 
-        <!-- <% if (!currentUser) { %>
-            <div class="col-lg-6 offset-lg-3 bg-danger rounded-lg p-5 mt-5 shadow">
-                <p class="text-center">
-                    <svg width="45%" height="45%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 503.894 503.894">
-                        <g transform="translate(1 13)">
-                            <polygon style="fill:#AE938D;" points="105.453,470.029 250.52,248.162 395.587,470.029 	"/>
-                            <path style="fill:#E4F2DE;" d="M250.52,248.162H144.707L250.52,77.496v-0.853l135.68,215.04h-0.853l-23.893,23.893l-17.067-17.067
-                                l-17.067,17.067l-17.067-17.067l-15.36,15.36l0,0L250.52,248.162L250.52,248.162z M3.053,470.029h102.4l-6.827-44.373l0,0
-                                l-10.24,10.24L71.32,418.829l-17.067,17.067l-17.92-17.92H35.48L3.053,470.029z M464.707,417.976l-17.92,17.92l-17.067-17.067
-                                l-17.067,17.067l-17.067-17.067l-19.627,19.627h-0.853l20.48,30.72h102.4L464.707,417.976L464.707,417.976z"/>
-                            <path style="fill:#50DD8E;" d="M84.973,338.616l13.653,87.04l0,0l-10.24,10.24L71.32,418.829l-17.067,17.067l-17.92-17.92H35.48
-                                L84.973,338.616z M386.2,292.536l79.36,125.44l0,0l-17.92,17.92l-17.067-17.067l-17.067,17.067l-17.067-17.067l-19.627,19.627
-                                h-0.853l-81.067-123.733l0,0l15.36-15.36l17.067,17.067l17.067-17.067l17.067,17.067L386.2,292.536L386.2,292.536z"/>
-                            <polygon style="fill:#E4F2DE;" points="144.707,248.162 71.32,248.162 84.973,338.616 98.627,425.655 105.453,470.029 
-                                250.52,248.162 	"/>
-                        </g>
-                        <path style="fill:#51565F;" d="M106.453,487.296L106.453,487.296H4.053c-1.707,0-3.413-0.853-3.413-2.56
-                            c-0.853-1.707-0.853-3.413,0-4.267l55.467-87.893c0.853-1.707,4.267-2.56,5.973-1.707s2.56,4.267,1.707,5.973l-20.48,32.427
-                            l12.8,12.8l13.653-13.653c1.707-1.707,4.267-1.707,5.973,0l13.653,13.653l5.973-5.973L68.054,261.162c0-0.853,0-2.56,0.853-3.413
-                            c0.853-0.853,1.707-1.707,3.413-1.707h136.533c2.56,0,4.267,1.707,4.267,4.267c0,2.56-1.707,4.267-4.267,4.267H77.441
-                            l31.573,205.653l138.24-211.627V103.296l-78.507,124.587c-0.853,1.707-4.267,2.56-5.973,1.707c-1.707-0.853-2.56-4.267-1.707-5.973
-                            l84.48-134.827l-40.96-65.707c-0.853-1.707-0.853-4.267,1.707-5.973c1.707-0.853,4.267-0.853,5.973,1.707l34.987,55.467V22.229
-                            c0-2.56,1.707-4.267,4.267-4.267c2.56,0,4.267,1.707,4.267,4.267v52.907l34.987-55.467c0.853-1.707,4.267-2.56,5.973-1.707
-                            c1.707,0.853,2.56,4.267,1.707,5.973l-40.96,65.707l245.76,390.827c0.853,1.707,0.853,2.56,0,4.267
-                            c-0.853,1.707-2.56,2.56-3.413,2.56h-102.4c-1.707,0-2.56-0.853-3.413-1.707L252.374,268.842L110.721,485.589c0,0,0,0,0,0.853
-                            c0,0,0,0.853-0.853,0.853C108.16,487.296,107.307,487.296,106.453,487.296L106.453,487.296z M399.147,478.762h92.16l-25.6-40.96
-                            L451.2,452.309c-1.707,1.707-4.267,1.707-5.973,0l-13.653-13.653l-13.653,13.653c-1.707,1.707-4.267,1.707-5.973,0l-13.653-13.653
-                            l-14.507,14.507L399.147,478.762z M11.733,478.762h89.6l-5.12-30.72l-4.267,4.267c-1.707,1.707-4.267,1.707-5.973,0L72.32,438.655
-                            l-13.653,13.653c-0.853,0.853-1.707,0.853-3.413,0.853l0,0c-0.853,0-2.56-0.853-3.413-0.853l-14.507-14.507L11.733,478.762z
-                            M301.013,328.576l75.947,116.907l16.213-16.213c1.707-1.707,4.267-1.707,5.973,0l13.653,13.653l13.653-13.653
-                            c1.707-1.707,4.267-1.707,5.973,0l13.653,13.653l12.8-12.8l-74.24-117.76l-20.48,20.48c-1.707,1.707-4.267,1.707-5.973,0
-                            l-13.653-13.653l-13.653,13.653c-1.707,1.707-4.267,1.707-5.973,0l-13.653-13.653L301.013,328.576z M345.387,308.096
-                            c0.853,0,2.56,0,3.413,0.853l13.653,13.653l18.773-18.773l-125.44-199.68v155.307l40.107,61.44l11.947-11.947
-                            c1.707-1.707,4.267-1.707,5.973,0l13.653,13.653l13.653-13.653C342.827,308.096,344.533,308.096,345.387,308.096z"/>
-                    </svg>
-                </p>
-
-                <h4 class="text-center text-white">YelpCamp</h4>
-                <h5 class="text-center my-4 text-white">
-                    Please login to see the content of our website!
-                </h5>
+<body class="d-flex text-center text-white bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="mb-auto">
+            <div>
+                <h3 class="float-md-left mb-0">YelpCamp</h3>
+                <nav class="nav nav-masthead justify-content-center float-md-right">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" href="/campgrounds">Campgrounds</a>
+                    <% if(!currentUser) { %>
+                        <a class="nav-link" href="/login">Login</a>
+                        <a class="nav-link" href="/register">Register</a>
+                        <% } else { %>
+                            <a class="nav-link" href="/logout">Logout</a>
+                            <% } %>
+                </nav>
             </div>
-            <% } else { %>
+        </header>
+        <main class="px-3">
+            <h1>YelpCamp</h1>
+            <p class="lead"> Welcome to YelpCamp! <br> Jump right in and explore our many campgrounds. <br> Feel free to share some of your own and comment on others!</p>
+            <a href="/campgrounds" class="btn btn-lg btn-secondary font-weight-bold border-white bg-white">View
+                Campgrounds</a>
+        </main>
 
-                <div class="col-lg-6 offset-lg-3 rounded-lg">
-                    <div class="card bg-gray-1 shadow mt-4 mb-5">
-                        <img src="https://images.unsplash.com/photo-1487730116645-74489c95b41b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Campgrounds</h5>
-                            <p class="card-text">Find camping spots around the world!</p>
-                            <a href="/campgrounds" class="btn btn-primary">See all <span class="badge badge-light"><%= dataCount %> </span></a>
-                        </div>
-                    </div>
-                </div>
-                <% } %> -->
-
-        <div class="col-lg-6 offset-lg-3 rounded-lg">
-            <div class="card bg-gray-1 shadow mt-4 mb-5">
-                <img src="https://images.unsplash.com/photo-1487730116645-74489c95b41b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Campgrounds</h5>
-                    <p class="card-text">Find camping spots around the world!</p>
-                    <a href="/campgrounds" class="btn btn-primary">See all <span class="badge badge-light"><%= dataCount %> </span></a>
-                </div>
-            </div>
-        </div>
+        <footer class="mt-auto text-white-50">
+            <p>&copy; 2021 </p>
+        </footer>
 
 
     </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+</body>
+
+</html>

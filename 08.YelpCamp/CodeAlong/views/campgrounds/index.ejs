@@ -1,35 +1,61 @@
-<% layout('layouts/boilerplate') %>
+<% layout('layouts/campgroundIndex') %>
 
-    <div class="col-12 mb-4">
-        <div class="row">
+
+    <div class="col-12 text-center mt-0 pt-0">
+        <h3 class="mt-0 pt-0 pb-3 mb-3">All Campgrounds</h3>
+    </div>
+
+    <div class="col-12 mx-0 p-0">
+        <div class="row mb-5 mx-0 p-0">
 
             <% for( let camp of camps ) { %>
-                <a href="/campgrounds/<%= camp.id %>" class="text-decoration-none text-black rounded-lg border-0">
+                <div class="col-12 mx-0 mb-3 p-0">
+                    <a href="/campgrounds/<%= camp.id %>" class="text-decoration-none text-black border-0">
 
-                    <div class="card bg-gray-1 m-3 p-0 border">
-                        <div class="row m-0 p-0">
-                            <div class="col-md-4 m-0 p-0 rounded-left">
-                                <img class="img-fluid rounded-left p-0 m-0 img-fit-content" src="<%= camp.image %> " alt="">
-                            </div>
-                            <div class="col-md-8 p-3 m-0 rounded-right border-0">
-                                <h3 class="card-title text-dark">
-                                    <%= camp.title %>
-                                </h3>
-                                <small class="text-muted">
-                                   Location: <%= camp.location %>  -  Price:<%= camp.price %>€/night
-                               </small>
-                                <p class="card-text text-dark">
-                                    <%= camp.description %>
-                                </p>
-
+                        <div class="card m-0 p-0 border-0">
+                            <div class="row">
+                                <div class="col-md-8 offset-md-2 col-lg-4 m-auto m-lg-0 p-0  index-img-height">
+                                    <% if (camp.images.length) { %>
+                                        <img class="img-fluid  p-0 m-0 img-fit-content" src="<%= camp.images[0].url %> " alt="">
+                                        <% } else { %>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-card-image  m-0 p-0 img-fit-content text-dark bg-gray-2 text-decoration-none" viewBox="0 0 16 16">
+                                            <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                                            <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z"/>
+                                        </svg>
+                                            <% } %>
+                                </div>
+                                <div class="col-md-8 offset-md-2 col-lg-8 m-auto m-lg-0 p-3 border">
+                                    <h3 class="card-title text-dark pl-lg-2">
+                                        <%= camp.title %>
+                                    </h3>
+                                    <small class="text-muted pl-lg-2">
+                                           Location: <%= camp.location %>  -  Price:<%= camp.price %>€/night
+                                    </small>
+                                    <p class="card-text text-dark pl-lg-2">
+                                        <% if (camp.description.length > 150) { %>
+                                            <%=  camp.description.slice(0, 150) + ' ...' %>
+                                                <% } else { %>
+                                                    <%= camp.description %>
+                                                        <% } %>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                </a>
-
+                    </a>
+                </div>
                 <% } %>
 
 
         </div>
     </div>
+
+
+
+    <script>
+        const mapBoxToken = '<%- mapBoxToken %>';
+        const campgrounds = {
+            features: <%- JSON.stringify(camps) %>
+        };
+    </script>
+    <script src="/js/clusterMap.js"></script>

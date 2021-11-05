@@ -66,15 +66,20 @@
         <ul class="navbar-nav ml-auto">
             <% if (!currentUser) { %>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-sm btn-warning text-dark rounded-pill my-1 mx-lg-1 my-lg-0" href="/login">
-                    login 
-                </a>
+                    <a class="nav-link btn btn-sm btn-warning text-dark rounded-pill my-1 mx-lg-1 my-lg-0 py-1" href="/login">
+                        <b>
+                        login
+                    </b>
+
+                    </a>
                 </li>
                 <% } else { %>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-sm btn-danger text-dark rounded-pill mx-1" href="/logout">
-                    logout
-                </a>
+                        <a class="nav-link btn btn-sm btn-danger text-dark rounded-pill mx-1 py-1" href="/logout">
+                            <b>
+                                logout
+                            </b>
+                        </a>
                     </li>
                     <% } %>
         </ul>

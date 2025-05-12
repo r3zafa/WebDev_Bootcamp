@@ -1,0 +1,42 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="col-12">
+        <p>
+            <a href="/campgrounds/new" class='btn btn-sm btn-danger rounded-pill px-3 my-3 float-right'>
+                    Add new campground
+                </a>
+        </p>
+    </div>
+    <div class="col-12">
+        <div class="row">
+
+            <% for( let camp of camps ) { %>
+                <a href="/campgrounds/<%= camp.id %>" class="text-decoration-none text-black rounded-lg border-0">
+
+                    <div class="card bg-gray-1 m-3 p-0 border">
+                        <div class="row m-0 p-0">
+                            <div class="col-md-4 m-0 p-0 rounded-left">
+                                <img class="img-fluid rounded-left p-0 m-0 img-fit-content" src="<%= camp.image %> " alt="">
+                            </div>
+                            <div class="col-md-8 p-3 m-0 rounded-right border-0">
+                                <h3 class="card-title text-dark">
+                                    <%= camp.title %>
+                                </h3>
+                                <small class="text-muted">
+                                   Location: <%= camp.location %>  -  Price:<%= camp.price %>€/night
+                               </small>
+                                <p class="card-text text-dark">
+                                    <%= camp.description %>
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </a>
+
+                <% } %>
+
+
+        </div>
+    </div>
